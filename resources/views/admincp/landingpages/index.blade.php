@@ -4,7 +4,18 @@
 
 @section('content')
     <div class="container">
-        <h2>Landingpages</h2>
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto d-none d-sm-block">
+                <h3><strong>Navigation</strong> </h3>
+            </div>
+
+            <div class="col-auto ms-auto text-end mt-n1">
+                {{-- <a href="#" class="btn btn-light bg-white me-2">Invite a Friend</a> --}}
+                <a href="{{ route('landingpages.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</a>
+            </div>
+        </div>
+
+
         <table class="table table-hovered table-bordered">
             <thead class="bg-dark text-white">
                 <tr>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin Websytem</title>
+    <title>Admin {{ $setting->sitename }} Websytem</title>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -59,10 +59,10 @@
                                             <path d="M20 16L12 20L4 16"></path>
                                         </svg>
                                         <div class="mb-5">
-                                            <img src="/img/logo-icon-smga.png" class="img-fluid me-2"
-                                                style=" width: 40px; ">
-                                            <span class="fw-bold sitetitle"> WEBSITE <sup><small
+
+                                            <span class="fw-bold sitetitle">ADMIN WEBSITE <sup><small
                                                         class="badge bg-primary text-uppercase">v3</small></sup></span>
+
                                         </div>
 
                                     </a>
@@ -138,10 +138,10 @@
                                         </li>
 
                                         <li
-                                            class="sidebar-item {{ request()->is('admincp/landing*') ? 'active' : '' }}">
+                                            class="sidebar-item {{ request()->is('admincp/navigation*') ? 'active' : '' }}">
                                             <a class="sidebar-link" href="{{ route('landingpages.index') }}">
                                                 <i class="fa-solid fa-file-pdf"></i>
-                                                <span class="align-middle">Landing Page</span>
+                                                <span class="align-middle">Navigation</span>
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
@@ -228,7 +228,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/" target="_blank" role="button">
                             <i data-feather="globe"></i>
-                            Go to <strong>{{ env('APP_NAME') }}</strong>
+                            Go to <strong>{{ $setting->url }}</strong>
                         </a>
                     </li>
                     {{-- <li class="nav-item dropdown">

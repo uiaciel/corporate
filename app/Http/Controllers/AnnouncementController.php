@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PdfToImage\Pdf;
 use Illuminate\Support\Str;
 
 class AnnouncementController extends Controller
@@ -57,9 +56,7 @@ class AnnouncementController extends Controller
             $announcement->pdf = $pdf;
         }
 
-
         $announcement->save();
-
         return redirect()->route('announcements.index')->with('success', 'Announcement created successfully.');
 
     }

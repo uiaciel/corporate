@@ -1,9 +1,8 @@
 @extends('layouts.admincp')
 @section('content')
 <div class="container-fluid p-0">
-
     <div class="mb-3">
-        <h1 class="h3 d-inline align-middle">Messages</h1><a class="badge bg-primary ms-2" href="https://adminkit.io/pricing/" target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a>
+        <h1 class="h3 d-inline align-middle">Messages</h1>
     </div>
 
     <div class="card">
@@ -24,8 +23,8 @@
                     <div class="d-flex align-items-start">
                         <img src="https://placehold.co/600x400?text={{ ucfirst($contactx->sender) }}" class="rounded-circle me-1" alt="Vanessa Tucker" width="40" height="40">
                         <div class="flex-grow-1 ms-3">
-                            {{ $contact->email }}
-                            <div class="small"><span class="fas fa-circle chat-online"></span> {{ $contact->status }}</div>
+                            {{ $contactx->email }}
+                            <div class="small"><span class="fas fa-circle chat-online"></span> {{ $contactx->status }}</div>
                         </div>
                     </div>
                 </a>
