@@ -75,7 +75,31 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, Announcement $announcement)
     {
-        //
+        $announcement->title = $request->title;
+        $announcement->slug = Str::Slug($request->title);
+        $announcement->category = $request->category;
+        $announcement->content = $request->content;
+        $announcement->homepage = $request->homepage;
+        $announcement->datepublish = $request->datepublish;
+        $announcement->status = $request->status;
+
+        if ($request->hasFile('images')) {
+            $nama = time() . '-' . $request->file('images')->getClientOriginalName();
+            $path = $request->file('images')->storeAs('images', $nama, ['disk' => 'public']);
+            $announcement->image = $path;
+        }
+
+        if ($request->hasFile('pdf')) {
+
+            $slugName = str_replace(' ', '_', $request->file('pdf')->getClientOriginalName());
+
+            $fileName = time() . '_' . $slugName;
+            $pdf = $request->file('pdf')->storeAs('pdf', $fileName, ['disk' => 'public']);
+            $announcement->pdf = $pdf;
+        }
+
+        $announcement->save();
+        return redirect()->route('announcements.index')->with('success', 'Announcement updated successfully.');
     }
 
     /**
@@ -83,6 +107,17 @@ class AnnouncementController extends Controller
      */
     public function destroy(Announcement $announcement)
     {
-        //
+        if (Storage::disk('public')->exists($announcement->pdf)) {
+            Storage::disk('public')->delete($announcement->pdf);
+        }
+
+        if (Storage::disk('public')->exists($announcement->image)) {
+            Storage::disk('public')->delete($announcement->image);
+        }
+
+        $announcement->delete();
+
+        return redirect()->route('announcements.index')->with('success', 'Announcement deleted successfully.');
+
     }
 }

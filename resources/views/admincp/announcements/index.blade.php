@@ -27,7 +27,7 @@
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a class="dropdown-item" href="/announcement/{{ $announcement->slug }}">View</a>
                                         <a class="dropdown-item" href="{{ route('announcements.edit', $announcement->id) }}">Edit</a>
-                                        <form onsubmit="return confirm('{{ __('admincp.areyousure') }}');"
+                                        <form onsubmit="return confirm('Apakah kamu yakin ?');"
                                                         action="{{ route('announcements.destroy', $announcement->id) }}" method="POST">
 
                                                         @csrf

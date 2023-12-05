@@ -29,7 +29,7 @@
                                         class="form-control ">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="" class="form-label fw-bold">CATEGORY</label>
+                                    <label for="" class="form-label fw-bold">PDF</label>
                                     <div class="ratio ratio-1x1">
 
                                         <iframe src=
@@ -51,9 +51,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
+                                    <label for="" class="form-label fw-bold" id="date">HOMEPAGE</label>
+                                    <select class="form-select form-select-lg" name="homepage">
+                                        <option value="{{ $announcement->homepage }}">{{ $announcement->homepage }}</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="" class="form-label fw-bold" id="date">DATE</label>
-                                    <input type="date" name="datepublish"
-                                        class="form-control ">
+                                    <input type="date" value="{{ $announcement->datepublish }}" name="datepublish"
+                                        class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label fw-2 fw-bold">PDF</label>

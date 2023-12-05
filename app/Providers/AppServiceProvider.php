@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             '*',
             function ($view) {
 
-                $modal = Announcement::where('status', 'Publish')->orderBy('created_at', 'desc')->first();
+                $modal = Announcement::where('status', 'Publish')->where('homepage', 'Yes')->orderBy('created_at', 'desc')->first();
 
                 $view->with([
                     'category' => Category::all(),

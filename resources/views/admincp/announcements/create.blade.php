@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="" class="form-label fw-bold">CONTENT</label>
-                                    <textarea class="form-control" name="content" rows="10" id="tinymce"></textarea>
+                                    <textarea class="form-control tinymcefull" name="content" rows="10" id="tinymce"></textarea>
                                 </div>
                             </div>
                         </div>
