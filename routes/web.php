@@ -18,7 +18,7 @@ Route::get('language/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 });
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('/contact-us', [App\Http\Controllers\FrontController::class, 'contact'])->name('contact');
 Route::post('/send-contact', [App\Http\Controllers\FrontController::class, 'sendcontact'])->name('formcontact');
 Route::get('/reports', [App\Http\Controllers\FrontController::class, 'reports'])->name('reports');

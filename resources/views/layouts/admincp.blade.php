@@ -271,32 +271,6 @@
                     <ul class="navbar-nav navbar-align">
 
                         <li class="nav-item dropdown">
-                            @if (App()->getLocale() == 'id')
-                                <a class="nav-flag dropdown-toggle" href="#" id="languageDropdown"
-                                    data-bs-toggle="dropdown">
-                                    <img src="https://demo.adminkit.io/img/flags/id.png" alt="English">
-                                </a>
-                            @else
-                                <a class="nav-flag dropdown-toggle" href="#" id="languageDropdown"
-                                    data-bs-toggle="dropdown">
-                                    <img src="https://demo.adminkit.io/img/flags/us.png" alt="English">
-                                </a>
-                            @endif
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                                <a class="dropdown-item" href="{{ url('locale/id') }}">
-                                    <img src="https://demo.adminkit.io/img/flags/id.png" alt="Indonesia"
-                                        width="20" class="align-middle me-1">
-                                    <span class="align-middle">Indonesia</span>
-                                </a>
-                                <a class="dropdown-item" href="{{ url('locale/en') }}">
-                                    <img src="https://demo.adminkit.io/img/flags/us.png" alt="English"
-                                        width="20" class="align-middle me-1">
-                                    <span class="align-middle">English</span>
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
                             <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <img src="https://demo.adminkit.io/img/avatars/avatar.jpg"
