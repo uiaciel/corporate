@@ -45,7 +45,7 @@
                                         <td>{{ $post->category->name }}</td>
 
 
-                                        <td>{{ $post->datepublish }}</td>
+                                        <td>{{ $post->tanggal() }}</td>
                                         <td>{{ Str::upper($post->status) }}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">

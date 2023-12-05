@@ -36,7 +36,7 @@
                                                 <p class="mt-2"><small class="fw-bold">English : <a href="/{{ $page->slug_en }}" target="_blank"> {{ $page->title_en }}</a></small></p>
                                             </td>
                                             <td>
-                                                {{ $page->datepublish }}
+                                                {{ $page->tanggal() }}
                                             </td>
                                             <td>{{ $page->category }}</td>
 
@@ -45,10 +45,7 @@
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a href="{{ route('pages.edit', $page->id) }}"
                                                         class="btn btn-md btn-primary">Edit</a>
-                                                    <a class="btn btn-md btn-success" href="/{{ $page->slug }}"
-                                                        target="_blank">View</a>
-                                                    <form action="{{ route('pages.destroy', $page->id) }}" method="POST">
-
+                                                    <form action="{{ route('pages.destroy', $page->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this page?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
@@ -72,12 +69,4 @@
         </div>
 
     </div>
-
-    <script>
-        function confirmDelete(pageId) {
-            if (confirm('Are you sure you want to delete this page?')) {
-                window.location.href = '/pages/delete/' + pageId;
-            }
-        }
-    </script>
 @endsection

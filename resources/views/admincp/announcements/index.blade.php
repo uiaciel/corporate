@@ -47,7 +47,7 @@
                         <img class="card-img-top" src="/storage/{{ $announcement->image }}" alt="Unsplash">
 
                         <div class="card-body px-4 pt-2">
-
+                            <span>{{ $announcement->tanggal() }}</span>
                         </div>
 
                     </div>

@@ -28,7 +28,7 @@
                                         <tr>
                                             <td scope="row">{{ $loop->iteration }}</td>
                                             <td>{{ $annual->title }}</td>
-                                            <td>{{ $annual->datepublish }}</td>
+                                            <td>{{ $annual->tanggal() }}</td>
                                             <td>{{ Str::upper($annual->status) }}</td>
                                             <td>
                                                 <form onsubmit="return confirm('{{ __('admincp.areyousure') }}');"

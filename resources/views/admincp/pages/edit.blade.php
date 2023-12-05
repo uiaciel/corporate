@@ -68,6 +68,13 @@
                                     <input class="form-control form-control-sm" id="formFileSm" name="pdf_id" type="file">
                                   </div>
 
+                                  <div class="mb-3">
+                                    <ul>
+                                        <li><a href="/storage/{{ $page->pdf_id }}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{ $page->pdf_id }}</a></li>
+
+                                    </ul>
+                                  </div>
+
                             </div>
                         </div>
                     </div>
@@ -94,6 +101,13 @@
                                 <div class="mb-3">
                                     <label for="formFileSm" class="form-label fs-4 fw-bold">File PDF</label>
                                     <input class="form-control form-control-sm" id="formFileSm" name="pdf_en" type="file">
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <ul>
+                                        <li><a href="/storage/{{ $page->pdf_en }}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{ $page->pdf_en }}</a></li>
+
+                                    </ul>
                                   </div>
 
                             </div>

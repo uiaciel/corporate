@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +42,11 @@ class Post extends Model
         $src = array_pop($match);
 
         return $src;
+    }
+
+    public function tanggal()
+    {
+        return Carbon::parse($this->datepublish)->format('d F Y');
     }
 
     public function category()

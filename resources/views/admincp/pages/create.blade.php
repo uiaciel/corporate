@@ -2,6 +2,15 @@
 @section('content')
     <div class="container-fluid p-0">
         @auth
+                    @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @if (session('status'))
                 <div class="alert alert-success mb-1 mt-1">
                     {{ session('status') }}
