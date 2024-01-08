@@ -4,11 +4,9 @@
 /public/hot
 /public/storage
 /public/frontend
-/public/frontend_hineni
+/public/frontend*
 /resources/views/frontend
-/resources/views/frontend_hineni
-/resources/views/frontend_sge
-/resources/views/frontenda
+/resources/views/frontend*
 /storage/*.key
 /storage/app/public
 /storage/storage
