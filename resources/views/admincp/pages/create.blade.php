@@ -2,20 +2,18 @@
 @section('content')
     <div class="container-fluid p-0">
         @auth
-                    @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @if (session('status'))
-                <div class="alert alert-success mb-1 mt-1">
-                    {{ session('status') }}
-                </div>
-            @endif
+        @if ($errors->any())
+        <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert-message">
+                <p><strong class="text-danger">Opps Error!</strong> Please Check Field below</p>
+
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </div>
+        </div>
+        @endif
             <form action="{{ route('pages.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -27,7 +25,7 @@
                                 <div class="col-md-6 ms-auto text-start mt-n1">
                                     <h3>Add <strong>New Page</strong> </h3>
                                     <button type="submit" class="btn btn-sm btn-primary">PUBLISH</button>
-                                    <button type="reset" class="btn btn-sm btn-warning">RESET</button>
+
 
                                 </div>
 
@@ -72,6 +70,7 @@
                         <div class="card">
 
                             <div class="card-body">
+                                <h4 class="mb-4 border-start border-5 fs-4 fw-bold border-danger ps-2">Indonesia</h4>
                                 <div class="mb-3">
                                     <label for="" class="form-label fs-4 fw-bold">Judul</label>
                                     <input type="text" name="title_id"
@@ -99,6 +98,7 @@
                         <div class="card">
 
                             <div class="card-body">
+                                <h4 class="mb-4 border-start border-5 border-primary fs-4 fw-bold ps-2">English</h4>
                                 <div class="mb-3">
                                     <label for="" class="form-label fs-4 fw-bold">Title</label>
                                     <input type="text" name="title_en"

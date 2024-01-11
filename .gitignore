@@ -11,6 +11,8 @@
 /storage/app/public
 /storage/storage
 /vendor
+/database/seeders/PostsTableSeeder.php
+/database/seeders/PagesSeeder.php
 .env
 .env.backup
 .env.production

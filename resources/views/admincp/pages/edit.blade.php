@@ -12,9 +12,23 @@
 
                             <div class="card-body row">
                                 <div class="col-md-6 ms-auto text-start mt-n1">
-                                    <h3>Add <strong>New Page</strong> </h3>
-                                    <button type="submit" class="btn btn-sm btn-primary">PUBLISH</button>
-                                    <button type="reset" class="btn btn-sm btn-warning">RESET</button>
+                                    <h3>Edit <strong>Page</strong> </h3>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <button type="submit" class="btn btn-sm btn-primary">PUBLISH</button>
+                                            <a
+                                                name=""
+                                                id=""
+                                                target="_blank"
+                                                class="btn btn-sm btn-success"
+                                                href="{{ $page->slug_id }}"
+                                                role="button"
+                                                ><i class="fa fa-eye" aria-hidden="true"></i> VIEW</a
+                                            >
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
 
@@ -51,6 +65,8 @@
                         <div class="card">
 
                             <div class="card-body">
+                                <h4 class="mb-4 fs-4 fw-bold border-start border-5 border-danger ps-2">Indonesia</h4>
+
                                 <div class="mb-3">
                                     <label for="" class="form-label fs-4 fw-bold">Judul</label>
                                     <input type="text" name="title_id" value="{{ $page->title_id }}"
@@ -85,6 +101,8 @@
                         <div class="card">
 
                             <div class="card-body">
+                                <h4 class="mb-4 fs-4 fw-bold border-start border-5 border-primary ps-2">English</h4>
+
                                 <div class="mb-3">
                                     <label for="" class="form-label fs-4 fw-bold">Title</label>
                                     <input type="text" name="title_en" value="{{ $page->title_en }}"

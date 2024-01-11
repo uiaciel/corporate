@@ -384,16 +384,24 @@
 
             image_class_list: [{
                     title: 'image-left',
-                    value: 'image-left'
+                    value: 'rounded float-start'
                 },
                 {
                     title: 'image-right',
-                    value: 'image-right'
+                    value: 'rounded float-end'
                 },
                 {
                     title: 'image-center',
-                    value: 'image-center'
+                    value: 'rounded mx-auto d-block'
                 },
+                {
+                    title: 'image-responsive',
+                    value: 'rounded img-fluid'
+                },
+                {
+                    title: 'image-hidden',
+                    value: 'style="display:none;"'
+                }
             ],
             height: 500,
             setup: function(editor) {
@@ -406,7 +414,14 @@
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste imagetools"
             ],
-            toolbar: "undo redo preview spellcheckdialog formatpainter | blocks fontfamily fontsize | bold italic underline forecolor backcolor | link image | alignleft aligncenter alignright alignjustify | code",
+
+            toolbar: [
+                "code paste preview | image link undo redo ",
+                "bold italic underline forecolor backcolor",
+                " alignleft aligncenter alignright alignjustify"
+            ],
+            // toolbar: "code paste | undo redo preview spellcheckdialog formatpainter |  ",
+            // toolbar_mode: "wrap",
             menubar: false,
             image_title: true,
             automatic_uploads: true,
