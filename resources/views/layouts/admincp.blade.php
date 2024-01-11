@@ -348,8 +348,9 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!--<script src="/tinymce/tinymce.min.js"></script>-->
-    <script src="https://cdn.tiny.cloud/1/nnd7pakaxqr7isf3oqefsdlew1jsidgl78umfeus6tg21ng0/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/plcsua64qzb9xyaxabkhv7wtjcpr0vzounlnexchn12g0x7a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    {{-- <script src="https://cdn.tiny.cloud/1/plcsua64qzb9xyaxabkhv7wtjcpr0vzounlnexchn12g0x7a/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>

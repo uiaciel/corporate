@@ -38,7 +38,9 @@ class AppServiceProvider extends ServiceProvider
 
                 $view->with([
                     'category' => Category::all(),
-                    'berita' => Post::where('status', 'publish')->orderBy('created_at', 'DESC')->limit(4)->get(),
+                    'berita' => Post::where('status', 'publish')->orderBy('created_at', 'DESC')->limit(6)->get(),
+                    'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'DESC')->limit(8)
+                    ->get(),
                     'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
                     'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
                     // 'menus' => Menu::all(),
