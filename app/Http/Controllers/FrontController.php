@@ -16,7 +16,7 @@ class FrontController extends Controller
     public function index()
     {
         $landingpage = landingpage::All();
-        $posts = Post::where('status', 'Publish')->take(6)->get();
+        $posts = Post::OrderBy('created_at', 'desc')->where('status', 'Publish')->take(6)->get();
 
         return view('frontend.index', compact('landingpage', 'posts'));
     }
