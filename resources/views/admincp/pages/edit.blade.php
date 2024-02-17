@@ -15,7 +15,7 @@
                                 <div>
                                     <button type="submit" class="btn btn-sm btn-primary">PUBLISH</button>
                                     <a name="" id="" target="_blank" class="btn btn-sm btn-success"
-                                        href="{{ $page->slug_id }}" role="button"><i class="fa fa-eye"
+                                        href="/{{ $page->slug_en }}" role="button"><i class="fa fa-eye"
                                             aria-hidden="true"></i> VIEW</a>
                                 </div>
                             </div>
@@ -63,7 +63,15 @@
                         <div class="mb-3">
                             <ul>
                                 <li><a href="/storage/{{ $page->pdf_id }}"><i class="fa fa-file-pdf-o"
-                                            aria-hidden="true"></i> {{ $page->pdf_id }}</a></li>
+                                            aria-hidden="true"></i> {{ $page->pdf_id }}</a>
+                                            @if($page->pdf_id != null)
+                                            <span><a href="#"
+                                            class="text-danger" data-bs-toggle="modal" data-bs-target="#pdf_id"><i
+                                                class="fa fa-trash text-danger" aria-hidden="true"></i></a></span></li>
+                                                @endif
+
+
+
                             </ul>
                         </div>
                     </div>
@@ -91,7 +99,15 @@
                         <div class="mb-3">
                             <ul>
                                 <li><a href="/storage/{{ $page->pdf_en }}"><i class="fa fa-file-pdf-o"
-                                            aria-hidden="true"></i> {{ $page->pdf_en }}</a></li>
+                                    aria-hidden="true"></i> {{ $page->pdf_en }}</a>
+
+                                    @if($page->pdf_en != null)
+                                    <span><a href="#"
+                                    class="text-danger" data-bs-toggle="modal" data-bs-target="#pdf_en"><i
+                                        class="fa fa-trash text-danger" aria-hidden="true"></i></a></span>
+                                    @endif
+
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -99,6 +115,69 @@
             </div>
         </div>
     </form>
+
+    <div class="modal fade" id="pdf_id" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-danger" id="modalTitleId">
+                        <i class="fa fa-warning" aria-hidden="true"></i> Delete File
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="alert p-3 alert-warning">
+                        Do you want delete this PDF file? The file will be deleted from the server storage</div>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ route('pages.deletefile', $page->id) }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <input value="pdf_id" name="checkfile" hidden>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Back
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="pdf_en" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-danger" id="modalTitleId">
+                        <i class="fa fa-warning" aria-hidden="true"></i> Delete File
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="alert p-3 alert-warning">
+                        Do you want delete this PDF file? The file will be deleted from the server storage</div>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ route('pages.deletefile', $page->id) }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <input value="pdf_en" name="checkfile" hidden>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Back
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     @endauth
 </div>
 @endsection

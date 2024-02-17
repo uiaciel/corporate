@@ -14,14 +14,15 @@ class Page extends Model
         'title_en',
         'slug_id',
         'slug_en',
-        'language',
-        'post_id',
         'count',
         'content_id',
         'content_en',
         'category',
         'datepublish',
         'status',
+        'pdf_id',
+        'pdf_en',
+
     ];
 
     public function tanggal()

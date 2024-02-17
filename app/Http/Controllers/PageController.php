@@ -139,13 +139,51 @@ class PageController extends Controller
         }
 
         $page->save();
-        return redirect()->route('pages.index')->with('success', 'Page updated successfully.');
+        return redirect()->back()->with('success', 'Page updated successfully.');
     }
 
     public function destroy(Page $page)
     {
         $page->delete();
         return redirect()->back()->with('success', 'Page deleted successfully.');
+    }
+
+    public function deletefile(Request $request, $id)
+    {
+        $page = Page::findOrFail($id);
+        $checkfile = $request->checkfile;
+
+        if($checkfile == 'pdf_id') {
+
+
+            if (Storage::disk('public')->exists($page->pdf_id)) {
+                Storage::disk('public')->delete($page->pdf_id);
+            }
+
+            $page->pdf_id = null;
+            $page->save();
+        }
+
+        else {
+
+            if (Storage::disk('public')->exists($page->pdf_en)) {
+                Storage::disk('public')->delete($page->pdf_en);
+            }
+
+            $page->pdf_en = null;
+            $page->save();
+
+        }
+
+
+
+
+
+
+        return redirect()->back()->with('success', 'Pdf deleted successfully.');
+
+
+
     }
 
     public function import(Request $request)

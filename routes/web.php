@@ -47,7 +47,7 @@ Route::prefix('admincp')->middleware(['auth'])->group(function () {
         Route::post('/import/settings', [App\Http\Controllers\SettingController::class, 'import'])->name('settings.import');
 
         Route::get('/export/setting/', [App\Http\Controllers\SettingController::class, 'export'])->name('settings.export');
-
+        Route::post('/pages/deletepdf/{id}', [App\Http\Controllers\PageController::class, 'deletefile'])->name('pages.deletefile');
     });
 
 Route::redirect('/media/{slug}', '/en/media/{slug}', 301);
