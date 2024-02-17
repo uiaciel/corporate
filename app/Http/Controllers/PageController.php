@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::paginate(5);
+        $pages = Page::orderBy('datepublish', 'desc')->paginate(5);
         return view('admincp.pages.index', compact('pages'));
     }
 

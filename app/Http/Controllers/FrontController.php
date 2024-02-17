@@ -16,7 +16,7 @@ class FrontController extends Controller
     public function index()
     {
         $landingpage = landingpage::All();
-        $posts = Post::OrderBy('created_at', 'desc')->where('status', 'Publish')->take(6)->get();
+        $posts = Post::OrderBy('datepublish', 'desc')->where('status', 'Publish')->take(6)->get();
         $reports = Report::orderBy('datepublish', 'desc')->get();
 
         return view('frontend.index', compact('landingpage', 'posts', 'reports'));
@@ -36,17 +36,6 @@ class FrontController extends Controller
         return view('frontend.article', [
             'post' => $post,
             'lang' => $lang
-        ]);
-    }
-
-    public function articles($slug)
-    {
-
-            $post = Post::where('slug_id', $slug)->first();
-
-        return view('frontend.articles', [
-            'post' => $post,
-
         ]);
     }
 
@@ -90,6 +79,7 @@ class FrontController extends Controller
 
     public function sendcontact(Request $request)
     {
+
         $contact = new Contact;
         $contact->sender = $request->sender;
         $contact->subject = $request->subject;

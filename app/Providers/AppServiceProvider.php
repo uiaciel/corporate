@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
 
                     $view->with([
                         'category' => Category::all(),
-                        'berita' => Post::where('status', 'Publish')->orderBy('created_at', 'desc')->limit(6)->get(),
+                        'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
                         'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
                         ->get(),
                         'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
@@ -72,8 +72,8 @@ class AppServiceProvider extends ServiceProvider
 
                     $view->with([
                         'category' => Category::all(),
-                        'berita' => Post::where('status', 'Publish')->orderBy('created_at', 'desc')->limit(6)->get(),
-                        'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
+                        'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
+                        'beritaterbaru' => Post::where('status', 'publish')->orderBy('datepublish', 'desc')->limit(8)
                         ->get(),
                         'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
                         'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
