@@ -1,6 +1,7 @@
 @extends('layouts.admincp')
 @section('content')
     <div class="container-fluid p-0">
+       @include('admincp.error')
         @auth
             <form action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -16,7 +17,6 @@
                                 <div class="col-md-6 ms-auto text-start mt-n1">
                                     <h3>Add <strong>New Report</strong> </h3>
                                     <button type="submit" class="btn btn-sm btn-primary">PUBLISH</button>
-                                    <button type="reset" class="btn btn-sm btn-warning">RESET</button>
                                 </div>
                                 <div class="mb-3" hidden>
                                     <label for="" class="form-label fw-bold">Status</label>
@@ -52,19 +52,20 @@
                                         <div class="mb-3">
                                             <label for="" class="form-label fw-2 fw-bold">TITLE</label>
                                             <input type="text" name="title"
-                                                class="form-control">
+                                                class="form-control @error('title') is-invalid @enderror">
                                         </div>
                                         <div class="form-group mb-3">
                                             <label class="form-label fw-2 fw-bold">Cover</label>
                                             <input type="file" class="form-control @error('images') is-invalid @enderror"
-                                                name="images" id="images" multiple>
+                                                name="images" id="images">
                                         </div>
                                         <div class="mb-3">
                                             <label for="" class="form-label fw-bold fw-2">File PDF</label>
-                                            <input type="file" class="form-control" name="files" id="inputGroupFile01">
+                                            <input type="file" class="form-control @error('files') is-invalid @enderror" name="files" id="inputGroupFile01">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+                                        <label class="form-label fw-2 fw-bold">Preview Cover</label>
                                         <img id="imgPreview" src="https://via.placeholder.com/600x800.png" alt="preview image"
                                         class="img-fluid">
                                     </div>
@@ -75,6 +76,5 @@
                 </div>
             </form>
         @endauth
-    </div>
     </div>
 @endsection

@@ -17,8 +17,9 @@ class FrontController extends Controller
     {
         $landingpage = landingpage::All();
         $posts = Post::OrderBy('created_at', 'desc')->where('status', 'Publish')->take(6)->get();
+        $reports = Report::orderBy('datepublish', 'desc')->get();
 
-        return view('frontend.index', compact('landingpage', 'posts'));
+        return view('frontend.index', compact('landingpage', 'posts', 'reports'));
     }
 
     public function article($lang, $slug)
@@ -37,6 +38,18 @@ class FrontController extends Controller
             'lang' => $lang
         ]);
     }
+
+    public function articles($slug)
+    {
+
+            $post = Post::where('slug_id', $slug)->first();
+
+        return view('frontend.articles', [
+            'post' => $post,
+
+        ]);
+    }
+
 
     public function category($slug)
     {
@@ -65,7 +78,7 @@ class FrontController extends Controller
 
     public function reports()
     {
-        $reports = Report::All();
+        $reports = Report::orderBy('datepublish', 'desc')->get();
 
         return view('frontend.reports', compact('reports'));
     }

@@ -1,7 +1,7 @@
 @extends('layouts.admincp')
 @section('content')
     <div class="container-fluid p-0">
-
+            @include('admincp.error')
             <form action="{{ route('announcements.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-2 mb-xl-3">
@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-auto ms-auto text-end mt-n1">
                         <button type="submit" class="btn btn-md btn-primary">PUBLISH</button>
-                        <button type="reset" class="btn btn-md btn-warning">RESET</button>
+
                     </div>
                 </div>
                 <div class="row">
@@ -20,12 +20,12 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label fw-bold">TITLE</label>
                                     <input type="text" name="title"
-                                        class="form-control ">
+                                        class="form-control @error('title') is-invalid @enderror">
                                 </div>
                                 <div class="mb-3">
                                     <label for="" class="form-label fw-bold">CATEGORY</label>
                                     <input type="text" name="category"
-                                        class="form-control ">
+                                        class="form-control @error('category') is-invalid @enderror">
                                 </div>
                                 <div class="mb-3">
                                     <label for="" class="form-label fw-bold">CONTENT</label>
@@ -42,17 +42,17 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label fw-bold" id="date">DATE</label>
                                     <input type="date" name="datepublish"
-                                        class="form-control ">
+                                        class="form-control @error('datepublish') is-invalid @enderror">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label fw-2 fw-bold">PDF</label>
-                                    <input type="file" class="form-control"
-                                        name="pdf" id="files" multiple>
+                                    <input type="file" class="form-control @error('pdf') is-invalid @enderror"
+                                        name="pdf" id="files">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="form-label fw-2 fw-bold">Cover IMAGE</label>
                                     <input type="file" class="form-control @error('images') is-invalid @enderror"
-                                        name="images" id="images" multiple>
+                                        name="images" id="images">
                                 </div>
                                 <div class="mb-3">
                                     <img id="imgPreview" src="https://via.placeholder.com/600x800.png" alt="preview image"

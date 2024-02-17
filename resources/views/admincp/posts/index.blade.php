@@ -3,13 +3,49 @@
 @section('content')
 <div class="container-fluid p-0">
     <div class="row mb-2 mb-xl-3">
-        <div class="col-auto d-none d-sm-block">
-            <h3><strong>All</strong> Posts <a href="{{ route('posts.create') }}" class="btn btn-sm btn-dark">Add
-                    New</a></h3>
+        <div class="d-flex justify-content-between">
+            <h3><strong>Posts</strong></h3>
+            <div>
+                <a href="{{ route('posts.create') }}" class="btn btn-sm btn-dark">Add
+                    New</a>
+                <a href="{{ route('categories.index') }}" class="btn btn-sm btn-dark">Category</a>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalId">
+                    Import
+                </button>
+            </div>
+
         </div>
-        <div class="col-auto ms-auto text-end mt-n1">
-            <a href="{{ route('categories.index') }}" class="btn btn-sm btn-dark">Create Category</a>
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Upload Report Xls
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('posts.import') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="" class="form-label">Choose file</label>
+                                <input type="file" class="form-control" name="file" />
+                                <div id="fileHelpId" class="form-text">Help text</div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    Upload
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+
     </div>
     <div class="row mb-3">
         <div class="list-group">
@@ -23,13 +59,8 @@
                             class="badge bg-primary">{{ $post->status }}</span>
                     </div>
                     <div class="btn-group btn-group-sm !spacing" role="group" aria-label="Basic example">
-                        <a
-
-                        class="btn btn-dark btn-sm"
-                        href="{{ route('posts.edit', $post->id) }}"
-                        role="button"
-                        ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a
-                    >
+                        <a class="btn btn-dark btn-sm" href="{{ route('posts.edit', $post->id) }}" role="button"><i
+                                class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                             @csrf
@@ -41,9 +72,9 @@
                             </button>
                             <!-- Modal Body -->
                             <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                            <div class="modal fade" id="del{{ $post->id }}" tabindex="-1"
-                                data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
-                                aria-labelledby="modalTitleId" aria-hidden="true">
+                            <div class="modal fade" id="del{{ $post->id }}" tabindex="-1" data-bs-backdrop="static"
+                                data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
                                     role="document">
                                     <div class="modal-content">

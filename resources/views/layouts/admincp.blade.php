@@ -1,7 +1,6 @@
 <!doctype html>
 {{-- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"> --}}
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,26 +15,23 @@
     {{-- @vite(['resources/sass/app.scss']) --}}
     <link rel="stylesheet" href="/assets/app-light.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
     <script src="https://kit.fontawesome.com/1bfbc97117.js" crossorigin="anonymous"></script>
     <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/keymap/sublime.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/darcula.min.css"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/darcula.min.css" />
     <style>
         .mce-content-body {
-    background: #eeeeee
-}
+            background: #eeeeee
+        }
     </style>
     <script src="/assets/app-light.js"></script>
+    @vite([])
 </head>
-
 <body data-theme="dark" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
     <div id="app" class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
@@ -59,14 +55,10 @@
                                             <path d="M20 16L12 20L4 16"></path>
                                         </svg>
                                         <div class="mb-5">
-
                                             <span class="fw-bold sitetitle">ADMIN WEBSITE <sup><small
                                                         class="badge bg-primary text-uppercase">v3</small></sup></span>
-
                                         </div>
-
                                     </a>
-
                                     <ul class="sidebar-nav">
                                         <li class="sidebar-header">
                                             Menus
@@ -78,7 +70,6 @@
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-
                                         <li class="sidebar-item {{ request()->is('admincp/pages*') ? 'active' : '' }}">
                                             <a class="sidebar-link" href="{{ route('pages.index') }}">
                                                 <i class="fa-solid fa-book"></i>
@@ -86,16 +77,13 @@
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-
                                         <li class="sidebar-item {{ request()->is('admincp/posts*') ? 'active' : '' }}">
                                             <a class="sidebar-link" href="{{ route('posts.index') }}">
-
                                                 <i class="fa-solid fa-newspaper"></i>
                                                 <span class="align-middle">Posts</span>
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-
                                         <li
                                             class="sidebar-item {{ request()->is('admincp/announcements*') ? 'active' : '' }}">
                                             <a class="sidebar-link" href="{{ route('announcements.index') }}">
@@ -104,7 +92,6 @@
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-
                                         <li
                                             class="sidebar-item {{ request()->is('admincp/reports*') ? 'active' : '' }}">
                                             <a class="sidebar-link" href="{{ route('reports.index') }}">
@@ -113,21 +100,17 @@
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-
-                                        <li
+                                        {{-- <li
                                             class="sidebar-item {{ request()->is('admincp/contacts*') ? 'active' : '' }}">
                                             <a class="sidebar-link " href="{{ route('contacts.index') }}">
                                                 <i class="fa-solid fa-envelope"></i>
                                                 <span class="align-middle">INBOX
                                                 </span>
                                             </a>
-                                        </li>
-
-
+                                        </li> --}}
                                         <li class="sidebar-header">
                                             Editor
                                         </li>
-
                                         <li
                                             class="sidebar-item {{ request()->is('admincp/settings*') ? 'active' : '' }}">
                                             <a class="sidebar-link" href="{{ route('settings.index') }}">
@@ -136,7 +119,6 @@
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-
                                         <li
                                             class="sidebar-item {{ request()->is('admincp/navigation*') ? 'active' : '' }}">
                                             <a class="sidebar-link" href="{{ route('landingpages.index') }}">
@@ -145,8 +127,6 @@
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-
-
                                     </ul>
                                     <div class="sidebar-cta">
                                         <div class="sidebar-cta-content">
@@ -155,7 +135,6 @@
                                                 Jika terdapat gangguan atau permasalahan, bisa kontak support kami
                                             </div>
                                             <div class="d-grid">
-
                                                 <a href="https://api.whatsapp.com/send?phone=6285693749533&text=SupportWebSGE"
                                                     class="btn btn-outline-primary" target="_blank"><i
                                                         class="fa-brands fa-whatsapp"></i> Whatsapp</a>
@@ -182,94 +161,18 @@
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
                 </a>
-
                 <ul class="navbar-nav d-none d-lg-flex">
-                    {{-- <li class="nav-item px-2 dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="megaDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mega Menu
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="megaDropdown">
-                            <div class="d-md-flex align-items-start justify-content-start">
-                                <div class="dropdown-mega-list">
-                                    <div class="dropdown-header">UI Elements</div>
-                                    <a class="dropdown-item" href="#">Alerts</a>
-                                    <a class="dropdown-item" href="#">Buttons</a>
-                                    <a class="dropdown-item" href="#">Cards</a>
-                                    <a class="dropdown-item" href="#">Carousel</a>
-                                    <a class="dropdown-item" href="#">General</a>
-                                    <a class="dropdown-item" href="#">Grid</a>
-                                    <a class="dropdown-item" href="#">Modals</a>
-                                    <a class="dropdown-item" href="#">Tabs</a>
-                                    <a class="dropdown-item" href="#">Typography</a>
-                                </div>
-                                <div class="dropdown-mega-list">
-                                    <div class="dropdown-header">Forms</div>
-                                    <a class="dropdown-item" href="#">Layouts</a>
-                                    <a class="dropdown-item" href="#">Basic Inputs</a>
-                                    <a class="dropdown-item" href="#">Input Groups</a>
-                                    <a class="dropdown-item" href="#">Advanced Inputs</a>
-                                    <a class="dropdown-item" href="#">Editors</a>
-                                    <a class="dropdown-item" href="#">Validation</a>
-                                    <a class="dropdown-item" href="#">Wizard</a>
-                                </div>
-                                <div class="dropdown-mega-list">
-                                    <div class="dropdown-header">Tables</div>
-                                    <a class="dropdown-item" href="#">Basic Tables</a>
-                                    <a class="dropdown-item" href="#">Responsive Table</a>
-                                    <a class="dropdown-item" href="#">Table with Buttons</a>
-                                    <a class="dropdown-item" href="#">Column Search</a>
-                                    <a class="dropdown-item" href="#">Muulti Selection</a>
-                                    <a class="dropdown-item" href="#">Ajax Sourced Data</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li> --}}
+
                     <li class="nav-item">
                         <a class="nav-link" href="/" target="_blank" role="button">
                             <i data-feather="globe"></i>
                             Go to <strong>{{ $setting->url }}</strong>
                         </a>
                     </li>
-                    {{-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Resources
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="resourcesDropdown">
-                            <a class="dropdown-item" href="https://adminkit.io/" target="_blank"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-home align-middle me-1">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                </svg>
-                                Homepage</a>
-                            <a class="dropdown-item" href="https://adminkit.io/docs/" target="_blank"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-book-open align-middle me-1">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                                </svg>
-                                Documentation</a>
-                            <a class="dropdown-item" href="https://adminkit.io/docs/getting-started/changelog/"
-                                target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-edit align-middle me-1">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg> Changelog</a>
-                        </div>
-                    </li> --}}
-                </ul>
 
+                </ul>
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
-
                         <li class="nav-item dropdown">
                             <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -277,17 +180,16 @@
                                     class="avatar img-fluid rounded" alt="Charles Hall">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-
                                 <a class="dropdown-item" href="#">Hallo, @if (Auth::check())
-                                        {{ Auth::user()->name }}
+                                    {{ Auth::user()->name }}
                                     @else
-                                        Tamu
+                                    Tamu
                                     @endif
                                 </a>
-                                <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-help-circle align-middle me-1">
+                                <a class="dropdown-item" href="https://api.whatsapp.com/send?phone=6285693749533&text=SupportWebSGE"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-help-circle align-middle me-1">
                                         <circle cx="12" cy="12" r="10"></circle>
                                         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                                         <line x1="12" y1="17" x2="12.01" y2="17"></line>
@@ -295,15 +197,13 @@
                                 <div class="dropdown-divider"></div>
                                 @guest
                                 @else
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                        @csrf
-                                    </form>
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                                 @endguest
                             </div>
                         </li>
@@ -312,14 +212,14 @@
             </nav>
             <main class="content">
                 @yield('content')
-
             </main>
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row text-muted">
                         <div class="col-6 text-start">
                             <p class="mb-0">
-                                <a href="https://adminkit.io/" target="_blank" class="text-muted"><strong>{{ $setting->url }}</strong></a> ©
+                                <a href="https://adminkit.io/" target="_blank" class="text-muted"><strong>{{
+                                        $setting->url }}</strong></a> ©
                             </p>
                         </div>
                         <div class="col-6 text-end">
@@ -342,17 +242,16 @@
                 </div>
             </footer>
         </div>
-
     </div>
     <!--wrapper end-->
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!--<script src="/tinymce/tinymce.min.js"></script>-->
-    <script src="https://cdn.tiny.cloud/1/plcsua64qzb9xyaxabkhv7wtjcpr0vzounlnexchn12g0x7a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    {{-- <script src="https://cdn.tiny.cloud/1/plcsua64qzb9xyaxabkhv7wtjcpr0vzounlnexchn12g0x7a/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
+    <script src="https://cdn.tiny.cloud/1/plcsua64qzb9xyaxabkhv7wtjcpr0vzounlnexchn12g0x7a/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    {{-- <script
+        src="https://cdn.tiny.cloud/1/plcsua64qzb9xyaxabkhv7wtjcpr0vzounlnexchn12g0x7a/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script> --}}
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script>
         var el = document.getElementById('example1');
@@ -372,17 +271,13 @@
             // toolbar: "undo redo",
             toolbar: false,
             menubar: false
-
         });
     </script>
-
     <script>
         tinymce.init({
             selector: 'textarea.tinymcefull',
-
             skin: 'bootstrap',
             content_css: "/frontend/assets/css/bootstrap.min.css",
-
             image_class_list: [{
                     title: 'image-left',
                     value: 'rounded float-start'
@@ -415,7 +310,6 @@
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste imagetools"
             ],
-
             toolbar: [
                 "code paste preview | image link undo redo ",
                 "bold italic underline forecolor backcolor",
@@ -426,7 +320,6 @@
             menubar: false,
             image_title: true,
             automatic_uploads: true,
-
             images_upload_handler: function(blobInfo, success, failure) {
                 var xhr, formData;
                 xhr = new XMLHttpRequest();
@@ -441,7 +334,6 @@
                         return;
                     }
                     json = JSON.parse(xhr.responseText);
-
                     if (!json || typeof json.location != 'string') {
                         failure('Invalid JSON: ' + xhr.responseText);
                         return;
@@ -452,7 +344,6 @@
                 formData.append('file', blobInfo.blob(), blobInfo.filename());
                 xhr.send(formData);
             },
-
             file_picker_types: 'image',
             file_picker_callback: function(cb, value, meta) {
                 var input = document.createElement('input');
@@ -460,7 +351,6 @@
                 input.setAttribute('accept', 'image/*');
                 input.onchange = function() {
                     var file = this.files[0];
-
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function() {
@@ -521,25 +411,15 @@
             updateIndex = function(e, ui) {
                 $('td.index', ui.item.parent()).each(function(i) {
                     $(this).html(i + 1);
-
-
                 });
-
                 $('td input.in', ui.item.parent()).each(function(i) {
                     $(this).attr('value', i + 1);
-
-
-
                 });
-
             };
-
-
         $("#sort tbody").sortable({
             helper: fixHelperModified,
             stop: updateIndex
         }).disableSelection();
     </script>
 </body>
-
 </html>

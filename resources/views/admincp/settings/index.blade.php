@@ -2,7 +2,37 @@
 
 @section('content')
     <div class="container">
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitleId">
+                                        Upload Report Xls
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{{ route('settings.import') }}"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Choose file</label>
+                                            <input type="file" class="form-control" name="file" />
+                                            <div id="fileHelpId" class="form-text">Help text</div>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn btn-primary">
+                                                Upload
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
 
+                            </div>
+                        </div>
+                    </div>
         <form action="{{ route('settings.update', $setting->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -14,6 +44,12 @@
                 <div class="col-auto ms-auto text-end mt-n1">
 
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalId">
+                        <i class="fa fa-file-import" aria-hidden="true"></i> Import
+                    </button>
+                    <!-- Modal Body -->
+                    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+
                 </div>
             </div>
 

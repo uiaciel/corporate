@@ -14,10 +14,17 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+        ]);
+        \App\Models\Category::create([
+            'name' => 'News',
+            'slug' => 'news',
+        ], [
+            'name' => 'Career',
+            'slug' => 'career'
+        ]);
 
         \App\Models\Setting::create([
             "sitename" => "Hineni Resources",
@@ -96,6 +103,10 @@ class DatabaseSeeder extends Seeder
             "slug" => "menu-secondary",
         ]);
 
+        // \App\Models\Post::factory(30)->create();
+        // \App\Models\Page::factory(10)->create();
+        // \App\Models\Announcement::factory(15)->create();
+        // \App\Models\Report::factory(15)->create();
 
 
     }

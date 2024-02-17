@@ -2,17 +2,7 @@
 @extends('layouts.admincp')
 @section('content')
 <div class="container-fluid p-0">
-    @if ($errors->any())
-    <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <div class="alert-message">
-            <p><strong class="text-danger">Opps Error!</strong> Please Check Field below</p>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </div>
-    </div>
-    @endif
+    @include('admincp.error')
     @auth
     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -54,11 +44,11 @@
                         <h4 class="mb-4 border-start border-5 border-danger ps-2">Indonesia</h4>
                         <div class="mb-3">
                             <label for="" class="form-label fw-bold">Judul</label>
-                            <input type="text" name="title_id" class="form-control">
+                            <input type="text" name="title_id" class="form-control @error('title_id') is-invalid @enderror">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label fw-bold">Konten</label>
-                            <textarea class="form-control tinymcefull" name="content_id" rows="10"></textarea>
+                            <textarea class="form-control tinymcefull @error('content_id') is-invalid @enderror" name="content_id" rows="10"></textarea>
                         </div>
                     </div>
                 </div>

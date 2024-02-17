@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ReportImport;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -32,6 +35,13 @@ class ReportController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'files' => 'required|type:pdf|size:20000',
+            'images' => 'required|type:jpg,png,jpeg,gif|size:20000',
+            'title' => 'required',
+            'category' => 'required',
+            'datepublish' => 'required',
+        ]);
 
         $originName = $request->file('files')->getClientOriginalName();
         $slugName = str_replace(' ', '_', $originName);
@@ -60,6 +70,35 @@ class ReportController extends Controller
 
         return redirect()->route('reports.index')
             ->with('success', 'Report created successfully.');
+    }
+
+    public function import(Request $request)
+    {
+
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = $file->getClientOriginalName();
+
+        //temporary file
+        $path = $file->storeAs('public/excel/',$nama_file);
+
+        // import data
+        $import = Excel::import(new ReportImport(), storage_path('app/public/excel/'.$nama_file));
+
+        if (Storage::disk('public')->exists('excel/' . $nama_file)) {
+            Storage::disk('public')->delete('excel/' . $nama_file);
+        }
+
+        if($import) {
+            //redirect
+            return redirect()->route('reports.index')->with(['success' => 'Data Berhasil Diimport!']);
+        } else {
+            //redirect
+            return redirect()->route('reports.index')->with(['error' => 'Data Gagal Diimport!']);
+        }
+
+
     }
 
     public function update(Request $request, $id)

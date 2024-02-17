@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,10 @@ Route::get('language/{locale}', function ($locale) {
 Auth::routes(['register' => false]);
 Route::get('/contact-us', [App\Http\Controllers\FrontController::class, 'contact'])->name('contact');
 Route::post('/send-contact', [App\Http\Controllers\FrontController::class, 'sendcontact'])->name('formcontact');
-Route::get('/reports', [App\Http\Controllers\FrontController::class, 'reports'])->name('reports');
-
+Route::get('/financial-reports', [App\Http\Controllers\FrontController::class, 'reports'])->name('reports');
+Route::get('/share-price', function () {
+    return view('frontend.share');
+});
 
 Route::prefix('admincp')->middleware(['auth'])->group(function () {
         Route::get('/', [App\Http\Controllers\AdmincpController::class, 'index'])->name('admincp');
@@ -38,8 +41,17 @@ Route::prefix('admincp')->middleware(['auth'])->group(function () {
 
         Route::post('/upload', [App\Http\Controllers\AdmincpController::class, 'tinymce'])->name('upload');
         Route::get('/testupload', [App\Http\Controllers\AdmincpController::class, 'testtinymce'])->name('testupload');
+        Route::post('/import/reports', [App\Http\Controllers\ReportController::class, 'import'])->name('reports.import');
+        Route::post('/import/pages', [App\Http\Controllers\PageController::class, 'import'])->name('pages.import');
+        Route::post('/import/posts', [App\Http\Controllers\PostController::class, 'import'])->name('posts.import');
+        Route::post('/import/settings', [App\Http\Controllers\SettingController::class, 'import'])->name('settings.import');
 
-});
+        Route::get('/export/setting/', [App\Http\Controllers\SettingController::class, 'export'])->name('settings.export');
+
+    });
+
+Route::redirect('/media/{slug}', '/en/media/{slug}', 301);
+Route::redirect('/en/media-center', '/category/news', 301);
 
 Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('front');
 Route::get('/{slug}', [App\Http\Controllers\FrontController::class, 'page'])->name('page');
@@ -47,9 +59,6 @@ Route::get('/{lang}/media/{slug}', [App\Http\Controllers\FrontController::class,
 
 Route::get('/category/{slug}', [App\Http\Controllers\FrontController::class, 'category'])->name('category');
 Route::get('/announcement/{slug}', [App\Http\Controllers\FrontController::class, 'announcement'])->name('announcement');
-
-
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

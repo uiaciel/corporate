@@ -32,6 +32,17 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'category' => 'required|max:255',
+            'images' => 'required|mimes:png,jpg,jpeg,gif|size:10000',
+            'pdf' => 'required|mimes:pdf|size:20000',
+            'datepublish' => 'required',
+
+        ]);
+
+
         $announcement = new Announcement;
         $announcement->title = $request->title;
         $announcement->slug = Str::Slug($request->title);

@@ -4,12 +4,13 @@
 
 @section('content')
     <div class="container">
+        @include('admincp.error')
         <h2>Create Category</h2>
         <form action="{{ route('categories.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required>
             </div>
             <div class="mb-3">
                 <label for="slug" class="form-label">Slug</label>

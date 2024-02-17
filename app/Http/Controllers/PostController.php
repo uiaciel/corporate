@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\PostImport;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PostController extends Controller
 {
@@ -81,5 +84,33 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('admincp.posts.show', compact('post'));
+    }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = $file->getClientOriginalName();
+
+        //temporary file
+        $path = $file->storeAs('public/excel/',$nama_file);
+
+        // import data
+        $import = Excel::import(new PostImport(), storage_path('app/public/excel/'.$nama_file));
+
+        if (Storage::disk('public')->exists('excel/'. $nama_file)) {
+            Storage::disk('public')->delete('excel/'. $nama_file);
+        }
+
+        if($import) {
+            //redirect
+            return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Diimport!']);
+        } else {
+            //redirect
+            return redirect()->route('posts.index')->with(['error' => 'Data Gagal Diimport!']);
+        }
+
+
     }
 }

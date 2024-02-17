@@ -3,10 +3,47 @@
 @section('content')
 <div class="container-fluid p-0">
     <div class="row mb-2 mb-xl-3">
-        <div class="col-auto">
-            <h3><strong>Pages</strong> <a href="{{ route('pages.create') }}" class="btn btn-sm btn-dark">Add New</a>
-            </h3>
+        <div class="d-flex justify-content-between">
+            <h3><strong>Pages</strong></h3>
+            <div>
+                <a href="{{ route('pages.create') }}" class="btn btn-sm btn-dark">Add New</a>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalId">
+                    Import
+                </button>
+            </div>
+
         </div>
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitleId">
+                                Upload Report Xls
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ route('pages.import') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Choose file</label>
+                                    <input type="file" class="form-control" name="file" />
+                                    <div id="fileHelpId" class="form-text">Help text</div>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        Upload
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
     </div>
     <div class="row">
         <div class="col-md-12 mb-3">
