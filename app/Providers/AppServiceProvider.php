@@ -51,21 +51,41 @@ class AppServiceProvider extends ServiceProvider
                     $data = $page->filter('span.p')->text();
                     $up = $page->filter('span.v')->text();
 
-                    $view->with([
-                        'category' => Category::all(),
-                        'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
-                        'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
-                            ->get(),
-                        'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
-                        'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
-                        'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
-                        'data' => $data,
-                        'cal' => $cal,
-                        'tanda' => $tanda,
-                        'up' => $up,
-                        'modal' => $modal,
-                        'setting' => Setting::where('id', 1)->first()
-                    ]);
+                    if(empty($cal) && empty($data) && empty($up)) {
+                        $view->with([
+                            'category' => Category::all(),
+                            'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
+                            'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
+                                ->get(),
+                            'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
+                            'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
+                            'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
+                            'data' => 'IDR',
+                            'cal' => '-',
+                            'tanda' => 'sedang ',
+                            'up' => 'menghubungkan ke server ..',
+                            'modal' => $modal,
+                            'setting' => Setting::where('id', 1)->first()
+                        ]);
+                    } else {
+                        $view->with([
+                            'category' => Category::all(),
+                            'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
+                            'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
+                                ->get(),
+                            'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
+                            'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
+                            'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
+                            'data' => $data,
+                            'cal' => $cal,
+                            'tanda' => $tanda,
+                            'up' => $up,
+                            'modal' => $modal,
+                            'setting' => Setting::where('id', 1)->first()
+                        ]);
+                    }
+
+
                 } catch (RequestException $e) {
 
 
