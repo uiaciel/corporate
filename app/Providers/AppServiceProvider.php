@@ -51,22 +51,48 @@ class AppServiceProvider extends ServiceProvider
                     $data = $page->filter('span.p')->text();
                     $up = $page->filter('span.v')->text();
 
+                    // Memeriksa apakah data yang diambil tidak kosong
+                    if (!empty($cal) && !empty($data) && !empty($up)) {
+                        // Lakukan operasi dengan data yang diambil
+                        $tanda = substr($cal, 0, 1);
+                        // ...
 
-                    $view->with([
-                        'category' => Category::all(),
-                        'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
-                        'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
-                        ->get(),
-                        'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
-                        'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
-                        'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
-                        'data' => $data,
-                        'cal' => $cal,
-                        'tanda' => $tanda,
-                        'up' => $up,
-                        'modal' => $modal,
-                        'setting' => Setting::where('id', 1)->first()
-                    ]);
+                        $view->with([
+                            'category' => Category::all(),
+                            'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
+                            'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
+                            ->get(),
+                            'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
+                            'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
+                            'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
+                            'data' => $data,
+                            'cal' => $cal,
+                            'tanda' => $tanda,
+                            'up' => $up,
+                            'modal' => $modal,
+                            'setting' => Setting::where('id', 1)->first()
+                        ]);
+
+
+                    } else {
+                        // Jika salah satu data kosong, hasilkan teks "Maintenance"
+
+                        $view->with([
+                            'category' => Category::all(),
+                            'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
+                            'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
+                            ->get(),
+                            'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
+                            'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
+                            'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
+                            'data' => 'IDR',
+                            'cal' => '-',
+                            'tanda' => 'sedang ',
+                            'up' => 'menghubungkan ke server ..',
+                            'modal' => $modal,
+                            'setting' => Setting::where('id', 1)->first()
+                        ]);
+                    }
 
                 } else {
 
