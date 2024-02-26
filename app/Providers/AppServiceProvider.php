@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Providers;
-
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\landingpage;
@@ -10,9 +8,8 @@ use App\Models\Report;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Goutte\Client;
-use GuzzleHttp\Exception\RequestException;
-
+use Symfony\Component\DomCrawler\Crawler;
+use GuzzleHttp\Client;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,7 +19,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-
     /**
      * Bootstrap any application services.
      */
@@ -34,24 +30,22 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(
             '*',
             function ($view) {
-
                 $modal = Announcement::where('status', 'Publish')->where('homepage', 'Yes')->orderBy('created_at', 'desc')->first();
+                $client = new Client();
+                // $url = 'https://www.google.com/finance/quote/SGER:IDX';
+                // $url = 'https://www.idxchannel.com/stocks?index=SGER&indexdetail=stockexchang3';
+                $url = 'https://www.idnfinancials.com/id/sger/pt-sumber-global-energy-tbk';
+                $page = $client->request('GET', $url);
+                $response = $client->request('GET', $url);
 
-                try {
-                    $client = new Client();
-                    // $url = 'https://www.google.com/finance/quote/SGER:IDX';
-                    // $url = 'https://www.idxchannel.com/stocks?index=SGER&indexdetail=stockexchang3';
-                    $url = 'https://www.idnfinancials.com/id/sger/pt-sumber-global-energy-tbk';
-                    $page = $client->request('GET', $url);
-
-                    $response = $client->getResponse();
-
-                    $cal = $page->filter('span.c')->text();
-                    $tanda = substr($cal, 0, 1);
-                    $data = $page->filter('span.p')->text();
-                    $up = $page->filter('span.v')->text();
-
-                    if(empty($cal) && empty($data) && empty($up)) {
+                if ($response->getStatusCode() == 200) {
+                    $html = (string) $response->getBody();
+                    $crawler = new Crawler($html);
+                    // Scraping data
+                    $calNode = $crawler->filter('span.c');
+                    $dataNode = $crawler->filter('span.p');
+                    $upNode = $crawler->filter('span.v');
+                    if (!$calNode->count() || !$dataNode->count() || !$upNode->count()) {
                         $view->with([
                             'category' => Category::all(),
                             'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
@@ -68,6 +62,11 @@ class AppServiceProvider extends ServiceProvider
                             'setting' => Setting::where('id', 1)->first()
                         ]);
                     } else {
+                        $cal = $calNode->text();
+                        $data = $dataNode->text();
+                        $up = $upNode->text();
+                        // Lakukan operasi dengan data yang diambil
+                        $tanda = substr($cal, 0, 1);
                         $view->with([
                             'category' => Category::all(),
                             'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
@@ -84,26 +83,6 @@ class AppServiceProvider extends ServiceProvider
                             'setting' => Setting::where('id', 1)->first()
                         ]);
                     }
-
-
-                } catch (RequestException $e) {
-
-
-                    $view->with([
-                        'category' => Category::all(),
-                        'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
-                        'beritaterbaru' => Post::where('status', 'publish')->orderBy('datepublish', 'desc')->limit(8)
-                            ->get(),
-                        'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
-                        'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
-                        'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
-                        'data' => 'IDR',
-                        'cal' => '-',
-                        'tanda' => 'sedang ',
-                        'up' => 'menghubungkan ke server ..',
-                        'modal' => $modal,
-                        'setting' => Setting::where('id', 1)->first()
-                    ]);
                 }
             }
         );
