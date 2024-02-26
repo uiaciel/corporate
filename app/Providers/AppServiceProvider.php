@@ -11,6 +11,7 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Goutte\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,73 +35,45 @@ class AppServiceProvider extends ServiceProvider
             '*',
             function ($view) {
 
-                $client = new Client();
-                // $url = 'https://www.google.com/finance/quote/SGER:IDX';
-                // $url = 'https://www.idxchannel.com/stocks?index=SGER&indexdetail=stockexchang3';
-                $url = 'https://www.idnfinancials.com/id/sger/pt-sumber-global-energy-tbk';
-                $page = $client->request('GET', $url);
-
-                $response = $client->getResponse();
-
                 $modal = Announcement::where('status', 'Publish')->where('homepage', 'Yes')->orderBy('created_at', 'desc')->first();
 
-                if ($response->getStatusCode() == 200) {
+                try {
+                    $client = new Client();
+                    // $url = 'https://www.google.com/finance/quote/SGER:IDX';
+                    // $url = 'https://www.idxchannel.com/stocks?index=SGER&indexdetail=stockexchang3';
+                    $url = 'https://www.idnfinancials.com/id/sger/pt-sumber-global-energy-tbk';
+                    $page = $client->request('GET', $url);
+
+                    $response = $client->getResponse();
 
                     $cal = $page->filter('span.c')->text();
                     $tanda = substr($cal, 0, 1);
                     $data = $page->filter('span.p')->text();
                     $up = $page->filter('span.v')->text();
 
-                    // Memeriksa apakah data yang diambil tidak kosong
-                    if (!empty($cal) && !empty($data) && !empty($up)) {
-                        // Lakukan operasi dengan data yang diambil
-                        $tanda = substr($cal, 0, 1);
-                        // ...
-
-                        $view->with([
-                            'category' => Category::all(),
-                            'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
-                            'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
+                    $view->with([
+                        'category' => Category::all(),
+                        'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
+                        'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
                             ->get(),
-                            'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
-                            'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
-                            'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
-                            'data' => $data,
-                            'cal' => $cal,
-                            'tanda' => $tanda,
-                            'up' => $up,
-                            'modal' => $modal,
-                            'setting' => Setting::where('id', 1)->first()
-                        ]);
+                        'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
+                        'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
+                        'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
+                        'data' => $data,
+                        'cal' => $cal,
+                        'tanda' => $tanda,
+                        'up' => $up,
+                        'modal' => $modal,
+                        'setting' => Setting::where('id', 1)->first()
+                    ]);
+                } catch (RequestException $e) {
 
-
-                    } else {
-                        // Jika salah satu data kosong, hasilkan teks "Maintenance"
-
-                        $view->with([
-                            'category' => Category::all(),
-                            'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
-                            'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)
-                            ->get(),
-                            'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
-                            'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
-                            'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
-                            'data' => 'IDR',
-                            'cal' => '-',
-                            'tanda' => 'sedang ',
-                            'up' => 'menghubungkan ke server ..',
-                            'modal' => $modal,
-                            'setting' => Setting::where('id', 1)->first()
-                        ]);
-                    }
-
-                } else {
 
                     $view->with([
                         'category' => Category::all(),
                         'berita' => Post::where('status', 'Publish')->orderBy('datepublish', 'desc')->limit(6)->get(),
                         'beritaterbaru' => Post::where('status', 'publish')->orderBy('datepublish', 'desc')->limit(8)
-                        ->get(),
+                            ->get(),
                         'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
                         'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
                         'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
@@ -111,10 +84,7 @@ class AppServiceProvider extends ServiceProvider
                         'modal' => $modal,
                         'setting' => Setting::where('id', 1)->first()
                     ]);
-
                 }
-
-
             }
         );
     }
