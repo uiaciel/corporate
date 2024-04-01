@@ -36,8 +36,8 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'files' => 'required|type:pdf|size:20000',
-            'images' => 'required|type:jpg,png,jpeg,gif|size:20000',
+            'files' => 'required|type:pdf',
+            'images' => 'required|type:jpg,png,jpeg,gif',
             'title' => 'required',
             'category' => 'required',
             'datepublish' => 'required',
