@@ -31,10 +31,8 @@ class SettingController extends Controller
 
     public function update(Request $request, Setting $setting)
     {
-        $setting->update([
+        $setting->update($request->all());
 
-
-        ]);
         return redirect()->route('settings.index')->with('success', 'Setting updated successfully.');
     }
 
