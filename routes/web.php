@@ -22,7 +22,7 @@ Route::get('language/{locale}', function ($locale) {
 Auth::routes(['register' => false]);
 Route::get('/contact-us', [App\Http\Controllers\FrontController::class, 'contact'])->name('contact');
 Route::post('/send-contact', [App\Http\Controllers\FrontController::class, 'sendcontact'])->name('formcontact');
-Route::get('/financial-reports', [App\Http\Controllers\FrontController::class, 'reports'])->name('reports');
+Route::get('/financial-reports', [App\Http\Controllers\FrontController::class, 'reports'])->name('financial.reports');
 Route::get('/share-price', function () {
     return view('frontend.share');
 });

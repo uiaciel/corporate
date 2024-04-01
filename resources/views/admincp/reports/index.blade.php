@@ -224,7 +224,7 @@
                                 <td>{{ Str::upper($financial->status) }}</td>
                                 <td>
                                     <form onsubmit="return confirm('{{ __('admincp.areyousure') }}');"
-                                        action="{{ route('posts.destroy', $financial->id) }}" method="POST">
+                                        action="{{ route('reports.destroy', $financial->id) }}" method="POST">
                                         <a href="" data-bs-toggle="modal" data-bs-target="#edit{{ $financial->id }}"
                                             class="btn btn-md btn-primary"><i class="fa fa-pencil"
                                                 aria-hidden="true"></i></a>
@@ -376,7 +376,7 @@
                             <td>{{ $offering->status }}</td>
                             <td>
                                 <form onsubmit="return confirm('{{ __('admincp.areyousure') }}');"
-                                    action="{{ route('posts.destroy', $offering->id) }}" method="POST">
+                                    action="{{ route('reports.destroy', $offering->id) }}" method="POST">
                                     <a href="" data-bs-toggle="modal" data-bs-target="#edit{{ $offering->id }}"
                                         class="btn btn-md btn-primary"><i class="fa fa-pencil"
                                             aria-hidden="true"></i></a>
