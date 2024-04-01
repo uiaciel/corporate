@@ -36,8 +36,8 @@ class AnnouncementController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'category' => 'required|max:255',
-            'images' => 'required|mimes:png,jpg,jpeg,gif|size:10000',
-            'pdf' => 'required|mimes:pdf|size:20000',
+            'images' => 'required|mimes:png,jpg,jpeg,gif',
+            'pdf' => 'required',
             'datepublish' => 'required',
 
         ]);
