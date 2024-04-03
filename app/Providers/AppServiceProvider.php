@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
                 'beritaterbaru' => Post::where('status', 'publish')->orderBy('created_at', 'desc')->limit(8)->get(),
                 'menuprimary' => landingpage::where('slug', 'menu-primary')->first(),
                 'menusecondary' => landingpage::where('slug', 'menu-secondary')->first(),
-                'announs' => Announcement::where('status', 'Publish')->limit(3)->get(),
+                'announs' => Announcement::where('status', 'Publish')->where('datepublish', 'desc')->limit(4)->get(),
                 'data' => $data,
                 'cal' => $cal,
                 'tanda' => $tanda,
