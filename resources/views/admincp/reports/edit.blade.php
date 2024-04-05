@@ -75,7 +75,8 @@
                                             <option value="{{ $laporan->category }}">{{ $laporan->category }}</option>
                                             <option value="Annual Report">Annual Report</option>
                                             <option value="Financial Report">Financial Report</option>
-
+                                            <option value="Public Offering Prospectus">Public Offering Prospectus</option>
+                                            <option value="Audit Committee Charter">Audit Committee Charter</option>
                                         </select>
                                     </div>
                                 </div>

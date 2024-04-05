@@ -31,6 +31,7 @@
                                         <option value="Annual Report">Annual Report</option>
                                         <option value="Financial Report">Financial Report</option>
                                         <option value="Public Offering Prospectus">Public Offering Prospectus</option>
+                                        <option value="Audit Committee Charter">Audit Committee Charter</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
@@ -57,11 +58,11 @@
                                         <div class="form-group mb-3">
                                             <label class="form-label fw-2 fw-bold">Cover</label>
                                             <input type="file" class="form-control @error('images') is-invalid @enderror"
-                                                name="images" id="images">
+                                                name="images" id="images" accept="images/*">
                                         </div>
                                         <div class="mb-3">
                                             <label for="" class="form-label fw-bold fw-2">File PDF</label>
-                                            <input type="file" class="form-control @error('files') is-invalid @enderror" name="files" id="inputGroupFile01">
+                                            <input type="file" class="form-control @error('files') is-invalid @enderror" name="files" accept="application/pdf">
                                         </div>
                                     </div>
                                     <div class="col-md-4">

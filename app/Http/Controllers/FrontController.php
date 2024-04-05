@@ -17,9 +17,10 @@ class FrontController extends Controller
     {
         $landingpage = landingpage::All();
         $posts = Post::OrderBy('datepublish', 'desc')->where('status', 'Publish')->take(6)->get();
-        $reports = Report::orderBy('datepublish', 'desc')->get();
+        $reports = Report::where('category', '!=', 'Audit Committee Charter')->orderBy('datepublish', 'desc')->get();
+        $accs = Report::where('category', 'Audit Committee Charter')->orderBy('datepublish', 'desc')->get();
 
-        return view('frontend.index', compact('landingpage', 'posts', 'reports'));
+        return view('frontend.index', compact('landingpage', 'posts', 'reports', 'accs'));
     }
 
     public function article($lang, $slug)
@@ -56,6 +57,15 @@ class FrontController extends Controller
         return view('frontend.page', compact('page'));
     }
 
+    public function announcements()
+    {
+        $announcements = Announcement::where('status', 'Publish')->get();
+
+        return view('frontend.announcements', [
+            'announcements' => $announcements,
+        ]);
+    }
+
     public function announcement($slug)
     {
         $announcement = Announcement::where('slug', $slug)->first();
@@ -63,6 +73,13 @@ class FrontController extends Controller
         return view('frontend.announcement', [
             'announcement' => $announcement,
         ]);
+    }
+
+    public function acc()
+    {
+        $reports = Report::where('category', 'Audit Committee Charter')->orderBy('datepublish', 'desc')->get();
+
+        return view('frontend.acc', compact('reports'));
     }
 
     public function reports()

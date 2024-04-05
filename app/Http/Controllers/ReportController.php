@@ -14,9 +14,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $posts = Report::OrderBy('datepublish', 'desc')
-
-            ->get();
+        $posts = Report::OrderBy('datepublish', 'desc') ->get();
 
         return view('admincp.reports.index', [
             'posts' => $posts
@@ -164,6 +162,16 @@ class ReportController extends Controller
 
     public function destroy(Report $report)
     {
+
+
+        if (Storage::disk('public')->exists($report->pdf)) {
+            Storage::disk('public')->delete($report->pdf);
+        }
+
+        if (Storage::disk('public')->exists($report->image)) {
+            Storage::disk('public')->delete($report->image);
+        }
+
         $report->delete();
 
         return redirect()->route('reports.index')

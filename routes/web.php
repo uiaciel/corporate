@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/error', function() {
+//     return view('frontend.error');
+// });
+
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
@@ -23,6 +27,9 @@ Auth::routes(['register' => false]);
 Route::get('/contact-us', [App\Http\Controllers\FrontController::class, 'contact'])->name('contact');
 Route::post('/send-contact', [App\Http\Controllers\FrontController::class, 'sendcontact'])->name('formcontact');
 Route::get('/financial-reports', [App\Http\Controllers\FrontController::class, 'reports'])->name('financial.reports');
+Route::get('/audit-committee-charter', [App\Http\Controllers\FrontController::class, 'acc'])->name('acc.reports');
+Route::get('/announcements', [App\Http\Controllers\FrontController::class, 'announcements'])->name('frontend.announcement');
+
 Route::get('/share-price', function () {
     return view('frontend.share');
 });
