@@ -186,8 +186,9 @@
                                                         <button type="button" class="btn btn-dark text-white"
                                                     data-bs-dismiss="modal" aria-label="Close">Close</button>
                                                     </div>
-                                            </div>
-                                            </form>
+                                                </form>
+                                                </div>
+
                                         </div>
                                     </div>
                                 </tr>
@@ -405,70 +406,83 @@
                                                         <div class="row">
                                                             <div class="col-4">
                                                                 <div class="mb-3">
-                                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/NO-Image-Placeholder.svg/1665px-NO-Image-Placeholder.svg.png"
-                                                                        class="img-fluid">
+                                                                    <img id="imgPreview"
+                                                                        src="/storage/{{ $offering->image }}"
+                                                                        alt="preview image" class="img-fluid">
                                                                 </div>
                                                             </div>
                                                             <div class="col-8">
                                                                 <div class="mb-3">
-                                                                    <label class="form-label" for="inputEmail4">Title
-                                                                    </label>
-                                                                    <input type="text"
-                                                                        class="form-control @error('name') is-invalid @enderror"
-                                                                        name="name" value="{{ $offering->title }}">
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1"><i class="fa fa-pencil"
+                                                                                aria-hidden="true"></i></span>
+                                                                        <input type="text"
+                                                                            class="form-control @error('name') is-invalid @enderror"
+                                                                            name="title" value="{{ $offering->title }}">
+                                                                    </div>
                                                                 </div>
-                                                                @error('name')
-                                                                <div class="alert alert-danger mt-2">
-                                                                    {{ $message }}
-                                                                </div>
-                                                                @enderror
                                                                 <div class="mb-3">
                                                                     <div class="input-group">
                                                                         <span class="input-group-text"
-                                                                            id="basic-addon1">Type</span>
+                                                                            id="basic-addon1"><i class="fa fa-list"
+                                                                                aria-hidden="true"></i></span>
                                                                         <select
                                                                             class="form-select  @error('id_category') is-invalid @enderror"
                                                                             name="category">
-                                                                            <option value="{{ $offering->category }}">
-                                                                                {{ $offering->category }}
-                                                                            </option>
-                                                                            <option value="Annual Report">Annual Report
-                                                                            </option>
-                                                                            <option value="Financial Report">Financial
-                                                                                Report</option>
-                                                                            <option value="Public Offering Prospectus">
-                                                                                Public
-                                                                                Offering Prospectus
-                                                                            </option>
-                                                                            <option value="Audit Committee Charter">Audit Committee Charter</option>
+                                                                            <option value="{{ $offering->category }}"> {{ $offering->category }} </option> <option value="Annual Report">Annual Report </option>
+                                                                            <option value="Financial Report"> Financial Report</option>
+                                                                                <option value="Public Offering Prospectus">Public Offering Prospectus</option>
+                                                                                <option value="Audit Committee Charter">Audit Committee Charter</option>
+                                                                                <option value="Audit Committee Charter">Audit Committee Charter</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <div class="input-group">
                                                                         <span class="input-group-text"
-                                                                            id="basic-addon1">Date</span>
+                                                                            id="basic-addon1"><i class="fa fa-eye"
+                                                                                aria-hidden="true"></i></span>
+                                                                        <select
+                                                                            class="form-select  @error('status') is-invalid @enderror"
+                                                                            name="status">
+                                                                            <option value="{{ $offering->status }}">
+                                                                                {{ Str::upper($offering->status) }}
+                                                                            </option>
+                                                                            <option value="Publish">Publish
+                                                                            </option>
+                                                                            <option value="Draf">Draf</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1"><i class="fa fa-calendar"
+                                                                                aria-hidden="true"></i></span>
                                                                         <input type="date"
                                                                             class="form-control @error('gmt_date') is-invalid @enderror"
                                                                             name="datepublish"
-                                                                            value="{{ $financial->datepublish }}"
+                                                                            value="{{ $offering->datepublish }}"
                                                                             aria-describedby="helpId">
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label class="form-label" for="inputEmail4">File PDF
+                                                                    <label class="form-label fw-bold"
+                                                                        for="inputEmail4">File
+                                                                        PDF
                                                                     </label>
-                                                                    <div class="input-group mb-3">
-                                                                        <input type="text" class="form-control"
-                                                                            value="{{ $financial->pdf }}"
-                                                                            aria-label="Text input with checkbox" readonly>
-                                                                        <button class="btn btn-outline-secondary" type="button"
-                                                                            id="button-addon2">X</button>
-                                                                    </div>
                                                                     <div class="mb-3">
-                                                                        <input type="file" class="form-control" name="files"
-                                                                            id="inputGroupFile01">
+                                                                        <input type="file" class="form-control"
+                                                                            name="files" id="inputGroupFile01">
                                                                     </div>
+                                                                </div>
+                                                                <div class="form-group mb-3">
+                                                                    <label class="form-label fw-2 fw-bold">Cover
+                                                                        IMAGE</label>
+                                                                    <input type="file"
+                                                                        class="form-control @error('images') is-invalid @enderror"
+                                                                        name="images" id="images">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -476,10 +490,10 @@
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-primary">Update</button>
                                                         <button type="button" class="btn btn-dark text-white"
-                                                            data-bs-dismiss="modal" aria-label="Close">Close</button>
+                                                    data-bs-dismiss="modal" aria-label="Close">Close</button>
                                                     </div>
+                                                </form>
                                             </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </tr>
@@ -541,49 +555,60 @@
                                                         <div class="row">
                                                             <div class="col-4">
                                                                 <div class="mb-3">
-                                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/NO-Image-Placeholder.svg/1665px-NO-Image-Placeholder.svg.png"
-                                                                        class="img-fluid">
+                                                                    <img id="imgPreview"
+                                                                        src="/storage/{{ $acc->image }}"
+                                                                        alt="preview image" class="img-fluid">
                                                                 </div>
                                                             </div>
                                                             <div class="col-8">
                                                                 <div class="mb-3">
-                                                                    <label class="form-label" for="inputEmail4">Title
-                                                                    </label>
-                                                                    <input type="text"
-                                                                        class="form-control @error('name') is-invalid @enderror"
-                                                                        name="name" value="{{ $acc->title }}">
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1"><i class="fa fa-pencil"
+                                                                                aria-hidden="true"></i></span>
+                                                                        <input type="text"
+                                                                            class="form-control @error('name') is-invalid @enderror"
+                                                                            name="title" value="{{ $acc->title }}">
+                                                                    </div>
                                                                 </div>
-                                                                @error('name')
-                                                                <div class="alert alert-danger mt-2">
-                                                                    {{ $message }}
-                                                                </div>
-                                                                @enderror
                                                                 <div class="mb-3">
                                                                     <div class="input-group">
                                                                         <span class="input-group-text"
-                                                                            id="basic-addon1">Type</span>
+                                                                            id="basic-addon1"><i class="fa fa-list"
+                                                                                aria-hidden="true"></i></span>
                                                                         <select
                                                                             class="form-select  @error('id_category') is-invalid @enderror"
                                                                             name="category">
-                                                                            <option value="{{ $acc->category }}">
-                                                                                {{ $acc->category }}
-                                                                            </option>
-                                                                            <option value="Annual Report">Annual Report
-                                                                            </option>
-                                                                            <option value="Financial Report">Financial
-                                                                                Report</option>
-                                                                            <option value="Public Offering Prospectus">
-                                                                                Public
-                                                                                Offering Prospectus
-                                                                            </option>
-                                                                            <option value="Audit Committee Charter">Audit Committee Charter</option>
+                                                                            <option value="{{ $acc->category }}"> {{ $acc->category }} </option> <option value="Annual Report">Annual Report </option>
+                                                                            <option value="Financial Report"> Financial Report</option>
+                                                                                <option value="Public Offering Prospectus">Public Offering Prospectus</option>
+                                                                                <option value="Audit Committee Charter">Audit Committee Charter</option>
+                                                                                <option value="Audit Committee Charter">Audit Committee Charter</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <div class="input-group">
                                                                         <span class="input-group-text"
-                                                                            id="basic-addon1">Date</span>
+                                                                            id="basic-addon1"><i class="fa fa-eye"
+                                                                                aria-hidden="true"></i></span>
+                                                                        <select
+                                                                            class="form-select  @error('status') is-invalid @enderror"
+                                                                            name="status">
+                                                                            <option value="{{ $acc->status }}">
+                                                                                {{ Str::upper($acc->status) }}
+                                                                            </option>
+                                                                            <option value="Publish">Publish
+                                                                            </option>
+                                                                            <option value="Draf">Draf</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1"><i class="fa fa-calendar"
+                                                                                aria-hidden="true"></i></span>
                                                                         <input type="date"
                                                                             class="form-control @error('gmt_date') is-invalid @enderror"
                                                                             name="datepublish"
@@ -592,19 +617,21 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label class="form-label" for="inputEmail4">File PDF
+                                                                    <label class="form-label fw-bold"
+                                                                        for="inputEmail4">File
+                                                                        PDF
                                                                     </label>
-                                                                    <div class="input-group mb-3">
-                                                                        <input type="text" class="form-control"
-                                                                            value="{{ $acc->pdf }}"
-                                                                            aria-label="Text input with checkbox" readonly>
-                                                                        <button class="btn btn-outline-secondary" type="button"
-                                                                            id="button-addon2">X</button>
-                                                                    </div>
                                                                     <div class="mb-3">
-                                                                        <input type="file" class="form-control" name="files"
-                                                                            id="inputGroupFile01">
+                                                                        <input type="file" class="form-control"
+                                                                            name="files" id="inputGroupFile01">
                                                                     </div>
+                                                                </div>
+                                                                <div class="form-group mb-3">
+                                                                    <label class="form-label fw-2 fw-bold">Cover
+                                                                        IMAGE</label>
+                                                                    <input type="file"
+                                                                        class="form-control @error('images') is-invalid @enderror"
+                                                                        name="images" id="images">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -612,10 +639,10 @@
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-primary">Update</button>
                                                         <button type="button" class="btn btn-dark text-white"
-                                                            data-bs-dismiss="modal" aria-label="Close">Close</button>
+                                                    data-bs-dismiss="modal" aria-label="Close">Close</button>
                                                     </div>
+                                                </form>
                                             </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </tr>
