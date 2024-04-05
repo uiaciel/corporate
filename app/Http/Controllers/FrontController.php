@@ -69,9 +69,11 @@ class FrontController extends Controller
     public function announcement($slug)
     {
         $announcement = Announcement::where('slug', $slug)->first();
+        $announcements = Announcement::orderBy('datepublish', 'desc')->get();
 
         return view('frontend.announcement', [
             'announcement' => $announcement,
+            'announcements' => $announcements,
         ]);
     }
 
@@ -88,6 +90,15 @@ class FrontController extends Controller
 
         return view('frontend.reports', compact('reports'));
     }
+
+    public function report($slug)
+    {
+        $report = Report::where('slug', $slug)->first();
+        $reports = Report::orderBy('datepublish', 'desc')->get();
+
+        return view('frontend.report', compact('report', 'reports'));
+    }
+
 
     public function contact()
     {

@@ -66,6 +66,7 @@ Route::get('/{lang}/media/{slug}', [App\Http\Controllers\FrontController::class,
 
 Route::get('/category/{slug}', [App\Http\Controllers\FrontController::class, 'category'])->name('category');
 Route::get('/announcement/{slug}', [App\Http\Controllers\FrontController::class, 'announcement'])->name('announcement');
+Route::get('/report/{slug}', [App\Http\Controllers\FrontController::class, 'report'])->name('frontend.reportya');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
