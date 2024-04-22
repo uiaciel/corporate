@@ -38,15 +38,16 @@
             @method('PUT')
             <div class="row mb-2 mb-xl-3">
                 <div class="col-auto d-none d-sm-block">
-                    <h3><strong>Website Setting</strong> </h3>
+                    <h2 class="fw-bold">Settings</h2>
                 </div>
 
                 <div class="col-auto ms-auto text-end mt-n1">
 
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalId">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalId">
                         <i class="fa fa-file-import" aria-hidden="true"></i> Import
                     </button>
+                    <a href="{{ route('settings.export') }}" class="btn btn-sm btn-primary"> Export</a>
                     <!-- Modal Body -->
                     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
 
@@ -107,7 +108,7 @@
                                 <input type="text" class="form-control" id="tagline" value="{{ $setting->phone }}" name="phone">
                             </div>
                             <div class="mb-3">
-                                <label for="tagline" class="form-label fw-bold">Stock Code</label>
+                                <label for="tagline" class="form-label fw-bold">URL Code</label>
                                 <input type="text" class="form-control" id="tagline" value="{{ $setting->code }}" name="code">
                             </div>
 

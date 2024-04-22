@@ -3,18 +3,20 @@
     <div class="container-fluid p-0">
         <div class="row mb-2 mb-xl-3">
             <div class="col-auto d-none d-sm-block">
-                <h3><strong>Announcements</strong> </h3>
+                <h2 class="fw-bold">Announcements</h2>
             </div>
 
             <div class="col-auto ms-auto text-end mt-n1">
                 {{-- <a href="#" class="btn btn-light bg-white me-2">Invite a Friend</a> --}}
-                <a href="{{ route('announcements.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</a>
+                <a href="{{ route('announcements.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-upload" aria-hidden="true"></i> Import</a>
+                <a href="{{ route('announcements.export') }}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
             </div>
         </div>
 
         <div class="row">
             <div class="row">
-                @foreach ($announcements as $announcement)
+                @foreach ($announcements->where('homepage', 'Yes') as $announcement)
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card">
                         <div class="card-header px-4 pt-4">

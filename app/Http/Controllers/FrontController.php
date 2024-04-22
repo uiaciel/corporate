@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
+        
     public function index()
     {
         $landingpage = landingpage::All();
@@ -33,13 +34,11 @@ class FrontController extends Controller
             $post = Post::where('slug_en', $slug)->first();
         }
 
-
         return view('frontend.article', [
             'post' => $post,
             'lang' => $lang
         ]);
     }
-
 
     public function category($slug)
     {

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PostExport;
 use App\Imports\PostImport;
 use App\Models\Category;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -112,5 +114,11 @@ class PostController extends Controller
         }
 
 
+    }
+
+    public function export()
+    {
+        $carbon = Carbon::now()->format('F');
+        return Excel::download(new PostExport, 'backup-Posts' . '-' . $carbon . '.xlsx',  \Maatwebsite\Excel\Excel::XLSX);
     }
 }

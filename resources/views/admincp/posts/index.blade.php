@@ -4,14 +4,15 @@
 <div class="container-fluid p-0">
     <div class="row mb-2 mb-xl-3">
         <div class="d-flex justify-content-between">
-            <h3><strong>Posts</strong></h3>
+            <h2 class="fw-bold">Posts</h2>
             <div>
-                <a href="{{ route('posts.create') }}" class="btn btn-sm btn-dark">Add
-                    New</a>
-                <a href="{{ route('categories.index') }}" class="btn btn-sm btn-dark">Category</a>
+                <a href="{{ route('posts.create') }}" class="btn btn-sm btn-dark"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+                <a href="{{ route('categories.index') }}" class="btn btn-sm btn-dark"><i class="fa fa-list" aria-hidden="true"></i> Category</a>
                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalId">
-                    Import
+                    <i class="fa fa-upload" aria-hidden="true"></i> Import
                 </button>
+                <a href="{{ route('posts.export') }}" class="btn btn-sm btn-success"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
+
             </div>
 
         </div>
@@ -52,7 +53,7 @@
             @forelse ($posts as $index => $post)
             <div class="list-group-item ">
                 <h4 class="mb-1"><a href="/id/media/{{ $post->slug_id }}" target="_blank">{{ $post->title_id }}</a></h4>
-                <small><a href="/en/media/{{ $post->slug_en }}" class="text-secondary" target="_blank">{{
+                <small><a href="/en/media/{{ $post->slug_en }}" class="text-dark" target="_blank">{{
                         $post->title_en }}</a><br />{{ $post->tanggal() }}</small>
                 <div class="d-flex w-100 justify-content-between mt-3">
                     <div><span class="badge bg-dark">{{ $post->category->name }}</span> <span

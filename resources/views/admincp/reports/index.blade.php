@@ -3,13 +3,14 @@
 <div class="container-fluid p-0">
     <div class="row mb-2 mb-xl-3">
         <div class="d-flex justify-content-between">
-            <h3 class="fw-bold">REPORTS</h3>
+            <h2 class="fw-bold">REPORTS</h2>
             <div>
-                <a href="{{ route('reports.create') }}" class="btn btn-dark btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</a>
+                <a href="{{ route('reports.create') }}" class="btn btn-dark btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
                 <!-- Modal trigger button -->
                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalId">
-                    Import
+                    <i class="fa fa-upload" aria-hidden="true"></i> Import
                 </button>
+                <a href="{{ route('reports.export') }}" class="btn btn-primary btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
 
             </div>
         </div>

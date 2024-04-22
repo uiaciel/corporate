@@ -4,12 +4,13 @@
 <div class="container-fluid p-0">
     <div class="row mb-2 mb-xl-3">
         <div class="d-flex justify-content-between">
-            <h3><strong>Pages</strong></h3>
+            <h2 class="fw-bold">Pages</h2>
             <div>
-                <a href="{{ route('pages.create') }}" class="btn btn-sm btn-dark">Add New</a>
+                <a href="{{ route('pages.create') }}" class="btn btn-sm btn-dark"> <i class="fa fa-plus" aria-hidden="true"></i>Add New</a>
                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalId">
-                    Import
+                    <i class="fa fa-upload" aria-hidden="true"></i> Import
                 </button>
+                <a href="{{ route('pages.export') }}" class="btn btn-sm btn-success"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
             </div>
 
         </div>
@@ -49,15 +50,18 @@
         <div class="col-md-12 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-responsive table-striped" style="width:100%">
+                    <div class="table-responsive">
+
+                  
+                    <table class="table table-hover table-striped" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Judul</th>
-                                <th>Status</th>
-                                <th class="d-none d-md-table-cell">Kategori</th>
-                                <th class="d-none d-md-table-cell">Date Publish</th>
+                                <th class="fw-bold">Title</th>
+                                <th class="fw-bold">Status</th>
+                                <th class="d-none d-md-table-cell fw-bold">Category</th>
+                                <th class="d-none d-md-table-cell fw-bold">Date Publish</th>
 
-                                <th>Action</th>
+                                <th class="fw-bold">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,7 +141,7 @@
 
                         </tbody>
                     </table>
-
+                </div>
                 </div>
             </div>
         </div>

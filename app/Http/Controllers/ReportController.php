@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\Imports\ReportImport;
 use App\Models\Report;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +16,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $posts = Report::OrderBy('datepublish', 'desc') ->get();
+        $posts = Report::OrderBy('datepublish', 'desc')->get();
 
         return view('admincp.reports.index', [
             'posts' => $posts
@@ -176,5 +178,12 @@ class ReportController extends Controller
 
         return redirect()->route('reports.index')
             ->with('success', 'Data Berhasil Dihapus!');
+    }
+
+
+    public function export()
+    {
+        $carbon = Carbon::now()->format('F');
+        return Excel::download(new ReportExport, 'backup-Reports' . '-' . $carbon . '.xlsx',  \Maatwebsite\Excel\Excel::XLSX);
     }
 }

@@ -23,6 +23,9 @@ Route::get('language/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 });
+
+
+
 Auth::routes(['register' => false]);
 Route::get('/contact-us', [App\Http\Controllers\FrontController::class, 'contact'])->name('contact');
 Route::post('/send-contact', [App\Http\Controllers\FrontController::class, 'sendcontact'])->name('formcontact');
@@ -53,8 +56,13 @@ Route::prefix('admincp')->middleware(['auth'])->group(function () {
         Route::post('/import/posts', [App\Http\Controllers\PostController::class, 'import'])->name('posts.import');
         Route::post('/import/settings', [App\Http\Controllers\SettingController::class, 'import'])->name('settings.import');
 
-        Route::get('/export/setting/', [App\Http\Controllers\SettingController::class, 'export'])->name('settings.export');
         Route::post('/pages/deletepdf/{id}', [App\Http\Controllers\PageController::class, 'deletefile'])->name('pages.deletefile');
+        
+        Route::get('/export/setting/', [App\Http\Controllers\SettingController::class, 'export'])->name('settings.export');
+        Route::get('/export/pages/', [App\Http\Controllers\PageController::class, 'export'])->name('pages.export');
+        Route::get('/export/posts/', [App\Http\Controllers\PostController::class, 'export'])->name('posts.export');
+        Route::get('/export/reports/', [App\Http\Controllers\ReportController::class, 'export'])->name('reports.export');
+        Route::get('/export/announcements/', [App\Http\Controllers\AnnouncementController::class, 'export'])->name('announcements.export');
     });
 
 Route::redirect('/media/{slug}', '/en/media/{slug}', 301);
