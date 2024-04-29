@@ -27,18 +27,4 @@ class Handler extends ExceptionHandler
             //
         });
     }
-
-    function render($request, Throwable $exception)
-    {
-            if ($this->isHttpException($exception)) {
-                if ($exception->status == 404) {
-                    return response()->view('frontend.error',404);
-                }
-                if ($exception->status == 500) {
-                    return response()->view('frontend.error',500);
-                }
-            }
-            return parent::render($request, $exception);
-    }
-
 }
