@@ -9,6 +9,9 @@ class AdmincpController extends Controller
 {
     public function index()
     {
+
+        
+
         return view('admincp.index');
     }
 
@@ -21,5 +24,10 @@ class AdmincpController extends Controller
         $fileName = time() . '_' . $slugName;
         $request->file('file')->move(public_path() . '/storage/images/', $fileName);
         return response()->json(['location' => "$setting->url/storage/images/$fileName"]);
+    }
+
+    public function backup()
+    {
+        return view('admincp.backup');
     }
 }
