@@ -2,11 +2,18 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Sitemap\SitemapGenerator;
 
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
     return redirect()->back();
+});
+
+Route::get('/generate-sitemap', function () {
+    SitemapGenerator::create('https://sumberglobalenergy.co.id')->writeToFile(public_path('sitemap.xml'));
+    
+    return 'Sitemap generated successfully.';
 });
 
 Auth::routes(['register' => false]);
