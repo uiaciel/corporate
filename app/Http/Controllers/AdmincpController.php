@@ -8,7 +8,8 @@ use App\Models\Report;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
+
 
 class AdmincpController extends Controller
 {
@@ -39,7 +40,8 @@ class AdmincpController extends Controller
     public function sitemap()
     {
 
-        $sitemap = Sitemap::create(env('APP_URL'));
+        $sitemap = Sitemap::create();
+        $sitemap->add(Url::create(env('APP_URL')));
         $sitemap->add('/');
         $sitemap->add('/home');
 
