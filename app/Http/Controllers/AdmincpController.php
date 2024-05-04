@@ -39,13 +39,13 @@ class AdmincpController extends Controller
     public function sitemap()
     {
 
-        $sitemap = Sitemap::create();
+        $sitemap = Sitemap::create(env('APP_URL'));
         $sitemap->add('/');
         $sitemap->add('/home');
 
         $pages = Page::all();
         foreach ($pages as $page) {
-            $sitemap->add("/$page->slug");
+            $sitemap->add("/$page->slug_en");
         }
 
         $news = Post::all();
