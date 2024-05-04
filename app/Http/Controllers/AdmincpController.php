@@ -45,15 +45,15 @@ class AdmincpController extends Controller
 
         $pages = Page::all();
         foreach ($pages as $page) {
-            $sitemap->add("/{$page->slug}");
+            $sitemap->add("/$page->slug");
         }
 
-        $news = Post::where('slug_id', 'id')->get();
+        $news = Post::all();
         foreach ($news as $post) {
             $sitemap->add("/id/media/$post->slug_id");
         }
 
-        $newsen = Post::where('slug_en', 'en')->get();
+        $newsen = Post::all();
         foreach ($newsen as $posts) {
             $sitemap->add("/en/media/$posts->slug_en");
         }
