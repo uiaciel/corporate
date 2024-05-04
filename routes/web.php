@@ -10,11 +10,7 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 });
 
-Route::get('/generate-sitemap', function () {
-    SitemapGenerator::create('https://sumberglobalenergy.co.id')->writeToFile(public_path('sitemap.xml'));
-    
-    return 'Sitemap generated successfully.';
-});
+Route::get('/generate-sitemap', [App\Http\Controllers\AdmincpController::class, 'sitemap']);
 
 Auth::routes(['register' => false]);
 

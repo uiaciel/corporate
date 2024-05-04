@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
+use App\Models\Post;
+use App\Models\Report;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\SitemapGenerator;
 
 class AdmincpController extends Controller
 {
@@ -29,5 +34,39 @@ class AdmincpController extends Controller
     public function backup()
     {
         return view('admincp.backup');
+    }
+
+    public function sitemap()
+    {
+
+        $sitemap = Sitemap::create();
+        $sitemap->add('/');
+        $sitemap->add('/home');
+
+        $pages = Page::all();
+        foreach ($pages as $page) {
+            $sitemap->add("/{$page->slug}");
+        }
+
+        $news = Post::where('slug_id', 'id')->get();
+        foreach ($news as $post) {
+            $sitemap->add("/id/media/$post->slug_id");
+        }
+
+        $newsen = Post::where('slug_en', 'en')->get();
+        foreach ($newsen as $posts) {
+            $sitemap->add("/en/media/$posts->slug_en");
+        }
+
+        $report = Report::all();
+        foreach ($report as $report) {
+            $sitemap->add("/report/$report->slug");
+        }
+
+        $sitemap->writeToFile(public_path('sitemap.xml'));
+        
+        return 'Sitemap generated successfully.';
+
+
     }
 }
