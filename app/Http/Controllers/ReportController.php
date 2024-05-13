@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Exports\ReportExport;
 use App\Imports\ReportImport;
+use App\Models\Announcement;
 use App\Models\Report;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -37,25 +37,10 @@ class ReportController extends Controller
     {
         $request->validate([
             'files' => 'required',
-            'images' => 'required',
             'title' => 'required',
             'category' => 'required',
             'datepublish' => 'required',
         ]);
-
-        $originName = $request->file('files')->getClientOriginalName();
-        $slugName = str_replace(' ', '_', $originName);
-        $fileName = time() . '_' . $slugName;
-        $request->file('files')->move(public_path() . '/storage/reports/', $fileName);
-
-        $url = 'reports/' . $fileName;
-
-        $originimages = $request->file('images')->getClientOriginalName();
-        $slugimages = str_replace(' ', '_', $originimages);
-        $fileimages = time() . '_' . $slugimages;
-        $request->file('images')->move(public_path() . '/storage/reports/', $fileimages);
-
-        $urlimages = 'reports/' . $fileimages;
 
         $laporan = new Report;
         $laporan->title = $request->title;
@@ -64,9 +49,44 @@ class ReportController extends Controller
         $laporan->datepublish = $request->datepublish;
         $laporan->status = $request->status;
         $laporan->content = $request->content;
-        $laporan->image = $urlimages;
-        $laporan->pdf = $url;
+
+        if ($request->hasFile('files')) {
+            $pdf = $request->file('files');
+            $pdfName = time() . '_' . $pdf->getClientOriginalName();
+
+            // Simpan file PDF
+            $pdf->storeAs('public/reports', $pdfName);
+
+            // Konversi halaman pertama PDF menjadi gambar
+            $imagick = new \Imagick();
+            $imagick->setResolution(72, 72);
+            $imagick->readImage($pdf->getRealPath() . '[0]');
+            $imagick->setImageFormat('jpeg');
+
+            // Simpan gambar dengan nama file PDF ditambah dengan "_cover.webp" di direktori 'public/reports'
+            $imagePath = Storage::disk('public')->path('reports/' . $pdfName . '_cover.webp');
+            $imagick->writeImage($imagePath);
+            $laporan->image = 'reports/' . $pdfName . '_cover.webp';
+
+            // Simpan path PDF
+            $laporan->pdf = 'reports/' . $pdfName;
+        }
+
         $laporan->save();
+
+        if ($request->announcement == 'YES') {
+
+            $announcement = new Announcement;
+            $announcement->title = $request->title;
+            $announcement->slug = Str::Slug($request->title);
+            $announcement->category = $request->category;
+            $announcement->content = $request->content;
+            $announcement->datepublish = $request->datepublish;
+            $announcement->status = $request->status;
+            $announcement->image = 'reports/' . $pdfName . '_cover.webp';
+            $announcement->pdf = 'reports/' . $pdfName;
+            $announcement->save();
+        }
 
         return redirect()->route('reports.index')
             ->with('success', 'Report created successfully.');
@@ -81,24 +101,22 @@ class ReportController extends Controller
         $nama_file = $file->getClientOriginalName();
 
         //temporary file
-        $path = $file->storeAs('public/excel/',$nama_file);
+        $path = $file->storeAs('public/excel/', $nama_file);
 
         // import data
-        $import = Excel::import(new ReportImport(), storage_path('app/public/excel/'.$nama_file));
+        $import = Excel::import(new ReportImport(), storage_path('app/public/excel/' . $nama_file));
 
         if (Storage::disk('public')->exists('excel/' . $nama_file)) {
             Storage::disk('public')->delete('excel/' . $nama_file);
         }
 
-        if($import) {
+        if ($import) {
             //redirect
             return redirect()->route('reports.index')->with(['success' => 'Data Berhasil Diimport!']);
         } else {
             //redirect
             return redirect()->route('reports.index')->with(['error' => 'Data Gagal Diimport!']);
         }
-
-
     }
 
     public function update(Request $request, $id)
@@ -126,14 +144,13 @@ class ReportController extends Controller
 
         if ($request->hasFile('images')) {
 
-        $originimages = $request->file('images')->getClientOriginalName();
-        $slugimages = str_replace(' ', '_', $originimages);
-        $fileimages = time() . '_' . $slugimages;
-        $request->file('images')->move(public_path() . '/storage/reports/', $fileimages);
+            $originimages = $request->file('images')->getClientOriginalName();
+            $slugimages = str_replace(' ', '_', $originimages);
+            $fileimages = time() . '_' . $slugimages;
+            $request->file('images')->move(public_path() . '/storage/reports/', $fileimages);
 
-        $urlimages = 'reports/' . $fileimages;
-        $laporan->image = $urlimages;
-
+            $urlimages = 'reports/' . $fileimages;
+            $laporan->image = $urlimages;
         }
 
         $laporan->save();

@@ -82,4 +82,9 @@
     </form>
     @endauth
 </div>
+@push('script')
+
+
+
+@endpush
 @endsection

@@ -114,6 +114,6 @@ class FrontController extends Controller
         $contact->email = $request->email;
         $contact->save();
 
-        return redirect()->back()->with('message', 'Pesan berhasil terkirim');
+        return redirect()->back()->with('message', 'Thank you for your message. We have received your inquiry and will promptly review its contents. We will respond to your message via email as soon as possible. We appreciate your patience and understanding.');
     }
 }

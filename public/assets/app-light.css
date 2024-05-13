@@ -14080,16 +14080,18 @@ aa.badge-dark-light:focus {
 footer.footer {
     background: #fff;
     direction: ltr;
-    padding: 1rem .875rem
+    padding: 1rem .875rem;
+    background: #121b26;
 }
 
 body[data-theme=light] footer.footer {
-    background: linear-gradient(90deg, hsla(0, 0%, 100%, .5), #fff 3%, #fff)
+    background: linear-gradient(90deg, hsla(0, 0%, 100%, .5), #fff 3%, #fff);
+    
 }
 
 body[data-theme=colored] footer.footer,
 body[data-theme=dark] footer.footer {
-    background: #fff
+    background: #b7b7b7;
 }
 
 footer.footer ul {
@@ -14182,7 +14184,7 @@ a.list-group-item {
 }
 
 .main {
-    background: #f5f7fb;
+    background: #b7b7b7;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     display: flex;
@@ -14361,7 +14363,8 @@ a.list-group-item {
 
 .navbar {
     border-bottom: 0;
-    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1)
+    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
+    background: #121b26;
 }
 
 @media(max-width:767.98px) {

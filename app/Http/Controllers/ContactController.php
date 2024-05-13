@@ -10,14 +10,14 @@ class ContactController extends Controller
 
     public function index()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::orderBy('created_at', 'desc')->get();
 
         return view('admincp.contacts.index', compact('contacts'));
     }
 
     public function edit(Contact $contact)
     {
-        $contacts = Contact::all();
+        $contacts = Contact::orderBy('created_at', 'desc')->get();
 
         return view('admincp.contacts.edit', compact('contacts', 'contact'));
     }

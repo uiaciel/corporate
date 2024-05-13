@@ -4,7 +4,9 @@
 
 @section('content')
     <div class="container">
-        <h2 class="mb-3">Edit Navigation</h2>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-3">Edit Navigation</h2>
         <form action="{{ route('landingpages.update', $landingpage->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -28,5 +30,7 @@
             <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
+            </div>
+        </div>
     </div>
 @endsection

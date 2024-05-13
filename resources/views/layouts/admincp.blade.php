@@ -100,14 +100,14 @@
                                                 {{-- <span class="sidebar-badge badge bg-primary">Posts</span> --}}
                                             </a>
                                         </li>
-                                        {{-- <li
+                                        <li
                                             class="sidebar-item {{ request()->is('admincp/contacts*') ? 'active' : '' }}">
                                             <a class="sidebar-link " href="{{ route('contacts.index') }}">
                                                 <i class="fa-solid fa-envelope"></i>
-                                                <span class="align-middle">INBOX
+                                                <span class="align-middle">Inbox
                                                 </span>
                                             </a>
-                                        </li> --}}
+                                        </li>
                                         <li class="sidebar-header">
                                             Editor
                                         </li>
@@ -157,7 +157,7 @@
             </div>
         </nav>
         <div class="main">
-            <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <nav class="navbar navbar-expand navbar-dark">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
                 </a>
@@ -273,101 +273,118 @@
             menubar: false
         });
     </script>
-    <script>
-        tinymce.init({
-            selector: 'textarea.tinymcefull',
-            skin: 'bootstrap',
-            content_css: "/frontend/assets/css/bootstrap.min.css",
-            image_class_list: [{
-                    title: 'image-left',
-                    value: 'rounded float-start'
-                },
-                {
-                    title: 'image-right',
-                    value: 'rounded float-end'
-                },
-                {
-                    title: 'image-center',
-                    value: 'rounded mx-auto d-block'
-                },
-                {
-                    title: 'image-responsive',
-                    value: 'rounded img-fluid'
-                },
-                {
-                    title: 'image-hidden',
-                    value: 'style="display:none;"'
-                }
-            ],
-            height: 500,
-            setup: function(editor) {
-                editor.on('init change', function() {
-                    editor.save();
-                });
+
+<script>
+    tinymce.init({
+        selector: 'textarea.tinymcefull',
+        skin: 'bootstrap',
+        content_css: "/frontend/assets/css/bootstrap.min.css",
+        image_class_list: [{
+                title: 'image-left',
+                value: 'rounded float-start'
             },
-            plugins: [
-                "code advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste imagetools"
-            ],
-            toolbar: [
-                "code paste preview | image link undo redo ",
-                "bold italic underline forecolor backcolor",
-                " alignleft aligncenter alignright alignjustify"
-            ],
-            // toolbar: "code paste | undo redo preview spellcheckdialog formatpainter |  ",
-            // toolbar_mode: "wrap",
-            menubar: false,
-            image_title: true,
-            automatic_uploads: true,
-            images_upload_handler: function(blobInfo, success, failure) {
-                var xhr, formData;
-                xhr = new XMLHttpRequest();
-                xhr.withCredentials = false;
-                xhr.open('POST', '{{ route('upload') }}');
-                var token = '{{ csrf_token() }}';
-                xhr.setRequestHeader("X-CSRF-Token", token);
-                xhr.onload = function() {
-                    var json;
-                    if (xhr.status != 200) {
-                        failure('HTTP Error: ' + xhr.status);
-                        return;
-                    }
-                    json = JSON.parse(xhr.responseText);
-                    if (!json || typeof json.location != 'string') {
-                        failure('Invalid JSON: ' + xhr.responseText);
-                        return;
-                    }
-                    success(json.location);
-                };
-                formData = new FormData();
-                formData.append('file', blobInfo.blob(), blobInfo.filename());
-                xhr.send(formData);
+            {
+                title: 'image-right',
+                value: 'rounded float-end'
             },
-            file_picker_types: 'image',
-            file_picker_callback: function(cb, value, meta) {
-                var input = document.createElement('input');
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', 'image/*');
-                input.onchange = function() {
-                    var file = this.files[0];
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function() {
-                        var id = 'blobid' + (new Date()).getTime();
-                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                        var base64 = reader.result.split(',')[1];
-                        var blobInfo = blobCache.create(id, file, base64);
-                        blobCache.add(blobInfo);
-                        cb(blobInfo.blobUri(), {
-                            title: file.name
-                        });
-                    };
-                };
-                input.click();
+            {
+                title: 'image-center',
+                value: 'rounded mx-auto d-block'
+            },
+            {
+                title: 'image-responsive',
+                value: 'rounded img-fluid'
+            },
+            {
+                title: 'image-hidden',
+                value: 'style="display:none;"'
             }
-        });
-    </script>
+        ],
+        height: 500,
+        
+        init_instance_callback: function (editor) {
+            // Ambil konten saat ini dari TinyMCE
+            var content = editor.getContent();
+
+            // Ganti semua kemunculan ../../storage/ menjadi /storage/
+            content = content.replaceAll('../../../storage/', '/storage/');
+
+            // Tetapkan kembali konten yang sudah dimodifikasi ke TinyMCE
+            editor.setContent(content);
+        },
+
+        setup: function(editor) {
+            editor.on('init change', function() {
+                editor.save();
+            });
+        },
+        plugins: [
+            "code advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste imagetools"
+        ],
+        toolbar: [
+            "code paste preview | image link undo redo ",
+            "bold italic underline forecolor backcolor",
+            " alignleft aligncenter alignright alignjustify"
+        ],
+        // toolbar: "code paste | undo redo preview spellcheckdialog formatpainter |  ",
+        // toolbar_mode: "wrap",
+        menubar: false,
+        image_title: true,
+        automatic_uploads: true,
+
+        images_upload_handler: function(blobInfo, success, failure) {
+            var xhr, formData;
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', '{{ route('upload') }}');
+            var token = '{{ csrf_token() }}';
+            xhr.setRequestHeader("X-CSRF-Token", token);
+            xhr.onload = function() {
+                var json;
+                if (xhr.status != 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+                json = JSON.parse(xhr.responseText);
+                if (!json || typeof json.location != 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+                success(json.location);
+            };
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            xhr.send(formData);
+        },
+        file_picker_types: 'image',
+        file_picker_callback: function(cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function() {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+                    cb(blobInfo.blobUri(), {
+                        title: file.name
+                    });
+                };
+            };
+            input.click();
+        }
+
+        
+    });
+</script>
+    
     <script>
         $(document).ready(() => {
             $('#images').change(function() {
@@ -421,5 +438,6 @@
             stop: updateIndex
         }).disableSelection();
     </script>
+    @stack('script')
 </body>
 </html>

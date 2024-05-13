@@ -4,9 +4,12 @@
 <div class="container-fluid p-0">
     <div class="row mb-2 mb-xl-3">
         <div class="d-flex justify-content-between">
-            <h2 class="fw-bold">Posts</h2>
+        <div>
+            <h2 class="fw-bold">Posts             <a href="{{ route('posts.create') }}" class="btn btn-sm btn-dark"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+            </h2>
+
+        </div>
             <div>
-                <a href="{{ route('posts.create') }}" class="btn btn-sm btn-dark"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
                 <a href="{{ route('categories.index') }}" class="btn btn-sm btn-dark"><i class="fa fa-list" aria-hidden="true"></i> Category</a>
                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalId">
                     <i class="fa fa-upload" aria-hidden="true"></i> Import
